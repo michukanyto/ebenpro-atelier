@@ -140,6 +140,7 @@ section.block + section.block { border-top: 1px solid var(--rule); }
 .p-store { fill: var(--birch-soft); stroke: var(--birch); stroke-width: 1.5; }
 .p-hot { fill: var(--critical-soft); stroke: var(--critical); stroke-width: 1.5; }
 .p-pack { fill: var(--green-soft); stroke: var(--green); stroke-width: 1.5; }
+.p-fin { fill: none; stroke: var(--green); stroke-width: 1.5; stroke-dasharray: 5 4; }
 .p-zone { fill: none; stroke: var(--muted); stroke-width: 1; stroke-dasharray: 4 5; }
 .p-t { fill: var(--ink); font: 600 12px var(--f-body); }
 .p-s { fill: var(--muted); font: 500 10px var(--f-mono); letter-spacing: .04em; }
@@ -362,8 +363,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         <p class="mono kicker"><span data-l="fr">01 · Ce que nous avons observé</span><span data-l="en">01 · What we saw</span></p>
         <h2><span data-l="fr">Votre atelier aujourd’hui</span><span data-l="en">Your shop today</span></h2>
       </div>
-      <p data-l="fr">Plan dessiné à partir de notre visite, sans échelle. La ligne rouge suit le trajet d’un meuble&nbsp;: du stock à la CNC, de l’autre côté du mur, d’un poste à l’autre, puis retour à la seule porte de l’atelier.</p>
-      <p data-l="en">Plan drawn from our visit, not to scale. The red line follows one piece of furniture: from stock to the CNC, through the wall, from station to station, then back to the shop's only door.</p>
+      <p data-l="fr">Plan dessiné à partir de notre visite, sans échelle. La ligne rouge suit le trajet d’un caisson&nbsp;: du stock à la CNC et à la bandeuse, de l’autre côté du mur jusqu’au poste Blum, puis retour vers les postes de montage, la presse et les produits finis, près de la seule porte de l’atelier.</p>
+      <p data-l="en">Plan drawn from our visit, not to scale. The red line follows one cabinet: from stock to the CNC and the edgebander, through the wall to the Blum station, then back to the assembly stations, the press and finished goods, next to the shop’s only door.</p>
     </div>
     <div class="constat">
       <div class="sheet">
@@ -372,49 +373,78 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
             <defs>
               <marker id="ab" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="p-arrow-bad" d="M0 0L10 5L0 10z"/></marker>
             </defs>
-            <rect class="p-box" x="292" y="10" width="100" height="40"/><text class="p-t" x="314" y="35" data-l="fr">Bureaux</text><text class="p-t" x="318" y="35" data-l="en">Offices</text>
-            <rect class="p-box" x="872" y="10" width="80" height="40"/><text class="p-t" x="896" y="35">Café</text>
-
+            <rect class="p-store" x="20" y="12" width="514" height="40"/>
+            <text class="p-t" x="32" y="37" data-l="fr">Salle d’exposition · Bureaux · Entreposage</text><text class="p-t" x="32" y="37" data-l="en">Showroom · Offices · Storage</text>
+            <rect class="p-box" x="884" y="12" width="76" height="40"/>
+            <text class="p-t" x="906" y="37">Café</text>
             <rect class="p-wall" x="20" y="60" width="940" height="290"/>
             <rect class="p-door" x="14" y="286" width="12" height="58"/>
             <text class="p-doortxt" x="20" y="367" data-l="fr">PORTE · ENTRÉE + SORTIE</text><text class="p-doortxt" x="20" y="367" data-l="en">DOOR · IN + OUT</text>
-            <line class="p-part" x1="438" y1="60" x2="438" y2="296"/>
-            <text class="p-s" x="414" y="366">PASSAGE ↑</text>
-
-            <rect class="p-store" x="34" y="72" width="76" height="66"/><text class="p-t" x="50" y="109">Stock</text>
-            <rect class="p-store" x="118" y="72" width="50" height="50"/><text class="p-t" x="124" y="101">Stock</text>
-            <rect class="p-box" x="38" y="226" width="60" height="52"/><text class="p-t" x="56" y="256">Lift</text>
-            <rect class="p-box" x="178" y="120" width="88" height="60"/><text class="p-t" x="208" y="154">CNC</text>
-            <rect class="p-store" x="240" y="72" width="34" height="38"/><text class="p-s" x="282" y="94" data-l="fr">RANGEMENT</text><text class="p-s" x="282" y="94" data-l="en">STORAGE</text>
-            <rect class="p-box" x="142" y="194" width="140" height="38"/><text class="p-t" x="150" y="218" data-l="fr">Bandeuse de chant</text><text class="p-t" x="150" y="218" data-l="en">Edgebander</text>
-            <rect class="p-box" x="196" y="260" width="48" height="52"/><text class="p-s" x="250" y="296" data-l="fr">SCIE À</text><text class="p-s" x="250" y="309" data-l="fr">PANNEAUX?</text><text class="p-s" x="250" y="296" data-l="en">PANEL</text><text class="p-s" x="250" y="309" data-l="en">SAW ?</text>
-            <rect class="p-box" x="330" y="230" width="92" height="58"/><text class="p-t" x="346" y="264" data-l="fr">Sableuse</text><text class="p-t" x="350" y="264" data-l="en">Sander</text>
-            <rect class="p-box" x="352" y="108" width="50" height="58"/>
-
-            <rect class="p-store" x="446" y="72" width="54" height="90"/><text class="p-t" x="456" y="121">Stock</text>
-            <rect class="p-hot" x="512" y="64" width="50" height="34"/><text class="p-t" x="520" y="86" data-l="fr">Poste</text><text class="p-t" x="516" y="86" data-l="en">Station</text>
-            <rect class="p-hot" x="568" y="64" width="58" height="34"/><text class="p-t" x="574" y="86" data-l="fr">Poste 1</text><text class="p-t" x="574" y="86" data-l="en">Stn 1</text>
-            <rect class="p-hot" x="640" y="64" width="58" height="34"/><text class="p-t" x="646" y="86" data-l="fr">Poste 2</text><text class="p-t" x="646" y="86" data-l="en">Stn 2</text>
-            <rect class="p-hot" x="540" y="112" width="56" height="46"/><text class="p-t" x="550" y="140" data-l="fr">Établi</text><text class="p-t" x="550" y="140" data-l="en">Bench</text>
-            <rect class="p-box" x="500" y="226" width="106" height="62"/><text class="p-t" x="512" y="254" data-l="fr">Banc de</text><text class="p-t" x="512" y="270" data-l="fr">scie</text><text class="p-t" x="512" y="262" data-l="en">Table saw</text>
-            <rect class="p-pack" x="640" y="152" width="90" height="40"/><text class="p-t" x="652" y="177" data-l="fr">Emballage</text><text class="p-t" x="660" y="177" data-l="en">Packing</text>
-            <rect class="p-box" x="664" y="228" width="70" height="56"/><text class="p-t" x="672" y="253" data-l="fr">Banc de</text><text class="p-t" x="672" y="269" data-l="fr">scie</text><text class="p-t" x="670" y="261" data-l="en">Table saw</text>
-            <rect class="p-box" x="760" y="296" width="100" height="44"/><text class="p-t" x="768" y="322" data-l="fr">Scie à onglet</text><text class="p-t" x="772" y="322" data-l="en">Miter saw</text>
-            <rect class="p-box" x="760" y="64" width="104" height="92"/><text class="p-t" x="772" y="108" data-l="fr">Cabine de</text><text class="p-t" x="772" y="124" data-l="fr">peinture</text><text class="p-t" x="772" y="108" data-l="en">Paint</text><text class="p-t" x="772" y="124" data-l="en">booth</text>
-            <rect class="p-store" x="896" y="196" width="58" height="80"/><text class="p-s" x="900" y="232" data-l="fr">ENTREPOS.</text><text class="p-s" x="902" y="232" data-l="en">STORAGE</text><text class="p-s" x="902" y="248">?</text>
-
-            <path class="p-flow-bad" marker-end="url(#ab)" d="M30 300 L110 138 L266 120 L282 232 L422 230 L446 318 L606 226 L626 98 L596 158 L698 98 L760 296 L864 156 L730 192 L748 214 L748 336 L448 340 L30 330"/>
+            <line class="p-part" x1="527" y1="60" x2="527" y2="290"/>
+            <text class="p-s" x="498" y="366">PASSAGE ↑</text>
+            <rect class="p-store" x="26" y="66" width="46" height="120"/>
+            <text class="p-s" x="31" y="130">STOCK</text>
+            <rect class="p-box" x="40" y="262" width="70" height="50"/>
+            <text class="p-s" x="46" y="284" data-l="fr">MONTE-</text><text class="p-s" x="46" y="284" data-l="en">LIFT</text>
+            <text class="p-s" x="46" y="297" data-l="fr">CHARGE</text>
+            <rect class="p-box" x="88" y="76" width="56" height="88"/>
+            <text class="p-t" x="102" y="124">CNC</text>
+            <rect class="p-box" x="92" y="196" width="112" height="44"/>
+            <text class="p-t" x="102" y="216" data-l="fr">Bandeuse</text><text class="p-t" x="102" y="216" data-l="en">Edgebander</text>
+            <text class="p-s" x="102" y="230" data-l="fr">DE CHANT</text>
+            <rect class="p-fin" x="148" y="248" width="86" height="90"/>
+            <text class="p-s" x="156" y="288" data-l="fr">PRODUITS</text><text class="p-s" x="156" y="288" data-l="en">FINISHED</text>
+            <text class="p-s" x="156" y="301" data-l="fr">FINIS</text><text class="p-s" x="156" y="301" data-l="en">GOODS</text>
+            <rect class="p-box" x="250" y="238" width="68" height="54"/>
+            <text class="p-s" x="256" y="262" data-l="fr">MACHINE</text><text class="p-s" x="256" y="262" data-l="en">WOOD</text>
+            <text class="p-s" x="256" y="275" data-l="fr">À BOIS</text><text class="p-s" x="256" y="275" data-l="en">MACHINE</text>
+            <rect class="p-box" x="328" y="268" width="60" height="50"/>
+            <text class="p-s" x="333" y="290" data-l="fr">MACHINE</text><text class="p-s" x="333" y="290" data-l="en">WOOD</text>
+            <text class="p-s" x="333" y="303" data-l="fr">À BOIS</text><text class="p-s" x="333" y="303" data-l="en">MACHINE</text>
+            <rect class="p-box" x="406" y="234" width="90" height="58"/>
+            <text class="p-s" x="416" y="260" data-l="fr">MACHINE</text><text class="p-s" x="416" y="260" data-l="en">WOOD</text>
+            <text class="p-s" x="416" y="273" data-l="fr">À BOIS</text><text class="p-s" x="416" y="273" data-l="en">MACHINE</text>
+            <rect class="p-hot" x="277" y="100" width="72" height="42"/>
+            <text class="p-t" x="290" y="126" data-l="fr">Poste</text><text class="p-t" x="290" y="126" data-l="en">Station</text>
+            <rect class="p-hot" x="362" y="104" width="40" height="70"/>
+            <text class="p-s" x="367" y="143" data-l="fr">POSTE</text><text class="p-s" x="367" y="143" data-l="en">STN</text>
+            <rect class="p-store" x="410" y="64" width="50" height="20"/>
+            <text class="p-s" x="416" y="78">STOCK</text>
+            <rect class="p-box" x="440" y="92" width="66" height="120"/>
+            <text class="p-t" x="452" y="156" data-l="fr">Presse</text><text class="p-t" x="452" y="156" data-l="en">Press</text>
+            <rect class="p-store" x="534" y="70" width="34" height="160"/>
+            <text class="p-s" x="536" y="154">STOCK</text>
+            <rect class="p-hot" x="600" y="90" width="52" height="44"/>
+            <text class="p-t" x="608" y="116" data-l="fr">Poste</text><text class="p-t" x="608" y="116" data-l="en">Station</text>
+            <rect class="p-hot" x="664" y="86" width="56" height="48"/>
+            <text class="p-t" x="674" y="114" data-l="fr">Poste</text><text class="p-t" x="674" y="114" data-l="en">Station</text>
+            <rect class="p-hot" x="730" y="96" width="46" height="36"/>
+            <text class="p-s" x="736" y="118" data-l="fr">POSTE</text><text class="p-s" x="736" y="118" data-l="en">STN</text>
+            <rect class="p-box" x="620" y="232" width="80" height="66"/>
+            <text class="p-t" x="630" y="258" data-l="fr">Banc de</text><text class="p-t" x="630" y="258" data-l="en">Table</text>
+            <text class="p-t" x="630" y="274" data-l="fr">scie</text><text class="p-t" x="630" y="274" data-l="en">saw</text>
+            <rect class="p-box" x="786" y="64" width="92" height="80"/>
+            <text class="p-t" x="796" y="100" data-l="fr">Cabine de</text><text class="p-t" x="796" y="100" data-l="en">Paint</text>
+            <text class="p-t" x="796" y="116" data-l="fr">peinture</text><text class="p-t" x="796" y="116" data-l="en">booth</text>
+            <rect class="p-box" x="740" y="236" width="64" height="58"/>
+            <text class="p-t" x="748" y="262" data-l="fr">Banc de</text><text class="p-t" x="748" y="262" data-l="en">Table</text>
+            <text class="p-t" x="748" y="278" data-l="fr">scie</text><text class="p-t" x="748" y="278" data-l="en">saw</text>
+            <rect class="p-box" x="812" y="250" width="40" height="40"/>
+            <text class="p-s" x="817" y="274">BLUM</text>
+            <rect class="p-box" x="860" y="250" width="40" height="40"/>
+            <text class="p-s" x="864" y="268" data-l="fr">SCIE À</text><text class="p-s" x="864" y="268" data-l="en">MITER</text>
+            <text class="p-s" x="864" y="281" data-l="fr">ONGLET</text><text class="p-s" x="864" y="281" data-l="en">SAW</text>
+            <rect class="p-store" x="908" y="196" width="46" height="100"/>
+            <text class="p-s" x="913" y="250">STOCK</text>
+            <path class="p-flow-bad" marker-end="url(#ab)" d="M30 300 L72 186 L144 164 L204 196 L240 330 L527 330 L808 330 L808 246 L652 134 L527 320 L506 212 L349 142 L234 248 L150 244 L120 342 L30 334"/>
             <g>
-              <circle class="p-step" cx="266" cy="120" r="9"/><text class="p-stepn" x="266" y="123.5">1</text>
-              <circle class="p-step" cx="282" cy="232" r="9"/><text class="p-stepn" x="282" y="235.5">2</text>
-              <circle class="p-step" cx="422" cy="230" r="9"/><text class="p-stepn" x="422" y="233.5">3</text>
-              <circle class="p-step" cx="606" cy="226" r="9"/><text class="p-stepn" x="606" y="229.5">4</text>
-              <circle class="p-step" cx="626" cy="98" r="9"/><text class="p-stepn" x="626" y="101.5">5</text>
-              <circle class="p-step" cx="596" cy="158" r="9"/><text class="p-stepn" x="596" y="161.5">6</text>
-              <circle class="p-step" cx="698" cy="98" r="9"/><text class="p-stepn" x="698" y="101.5">7</text>
-              <circle class="p-step" cx="760" cy="296" r="9"/><text class="p-stepn" x="760" y="299.5">8</text>
-              <circle class="p-step" cx="864" cy="156" r="9"/><text class="p-stepn" x="864" y="159.5">9</text>
-              <circle class="p-step" cx="730" cy="192" r="10"/><text class="p-stepn" x="730" y="195.5">10</text>
+              <circle class="p-step" cx="144" cy="164" r="9"/><text class="p-stepn" x="144" y="167.5">1</text>
+              <circle class="p-step" cx="204" cy="196" r="9"/><text class="p-stepn" x="204" y="199.5">2</text>
+              <circle class="p-step" cx="808" cy="246" r="9"/><text class="p-stepn" x="808" y="249.5">3</text>
+              <circle class="p-step" cx="652" cy="134" r="9"/><text class="p-stepn" x="652" y="137.5">4</text>
+              <circle class="p-step" cx="506" cy="212" r="9"/><text class="p-stepn" x="506" y="215.5">5</text>
+              <circle class="p-step" cx="349" cy="142" r="9"/><text class="p-stepn" x="349" y="145.5">6</text>
+              <circle class="p-step" cx="234" cy="248" r="9"/><text class="p-stepn" x="234" y="251.5">7</text>
             </g>
           </svg>
         </div>
@@ -425,9 +455,9 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
       </div>
       <div class="facts">
         <div class="fact"><b class="num">1</b><span data-l="fr">seule porte pour l’entrée des panneaux et la sortie des meubles</span><span data-l="en">single door to bring panels in and ship furniture out</span></div>
-        <div class="fact"><b class="num">2</b><span data-l="fr">passages à travers le mur&nbsp;: à l’aller, puis au retour vers la porte</span><span data-l="en">trips through the wall: on the way in, and back to the door</span></div>
-        <div class="fact"><b class="num">4</b><span data-l="fr">postes de montage dispersés (Poste, Poste&nbsp;1, Poste&nbsp;2, établi)</span><span data-l="en">assembly stations spread out (three stations and a bench)</span></div>
-        <div class="fact"><b class="num">4</b><span data-l="fr">zones d’entreposage, dont une sans usage défini</span><span data-l="en">stock areas, one of them with no clear purpose</span></div>
+        <div class="fact"><b class="num">2</b><span data-l="fr">passages à travers le mur&nbsp;: le poste Blum est à l’autre bout de l’atelier</span><span data-l="en">trips through the wall: the Blum station is at the far end of the shop</span></div>
+        <div class="fact"><b class="num">5</b><span data-l="fr">postes de montage dispersés des deux côtés du mur</span><span data-l="en">assembly stations spread out on both sides of the wall</span></div>
+        <div class="fact"><b class="num">0</b><span data-l="fr">zone d’emballage définie&nbsp;: les produits finis attendent près de l’entrée</span><span data-l="en">defined packing area: finished goods wait near the entrance</span></div>
       </div>
     </div>
   </div>
@@ -657,7 +687,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         lv: ["Regrouper les pièces en lots par couleur de bande.", "Un chariot de retour pour ramener les pièces directement à l’opérateur.", "Valider la première pièce, avec une fiche de réglage par type de bande."],
         kpi: [["Retouches", "% des pièces à reprendre"], ["Production", "pieds linéaires de bande / heure"]] },
       z3: { step: "Étape 03 · Zone Z3", title: "Quincaillerie", machine: "Perçage et pose Blum\u00a0: charnières et coulisses",
-        fr: ["Les perçages de charnières et de coulisses se font une pièce à la fois.", "La quincaillerie est recherchée au moment du montage.", "Risque d’erreur de côté ou de cote sur les portes et les façades."],
+        fr: ["Les perçages de charnières et de coulisses se font une pièce à la fois.", "Le poste Blum est à l’autre bout de l’atelier, loin de la CNC.", "Risque d’erreur de côté ou de cote sur les portes et les façades."],
         lv: ["Perçages de 35\u00a0mm et système 32\u00a0mm programmés directement dans la CNC.", "Un kit de quincaillerie préparé d’avance pour chaque commande, dans un bac identifié.", "Des gabarits anti-erreur pour les perçages restants."],
         kpi: [["Erreurs de perçage", "pièces à refaire / semaine"], ["Préparation du kit", "minutes par commande"]] },
       z4: { step: "Étape 04 · Zone Z4", title: "Assemblage", machine: "Montage des caissons et des meubles, avec la scie à onglet et le banc de scie à proximité", tag: "star",
@@ -665,7 +695,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         lv: ["Une seule zone d’assemblage\u00a0: établis à la bonne hauteur, chaque outil à sa place (5S).", "Une presse à caissons et une fiche de montage standard par type de meuble.", "Un chariot par commande\u00a0: les pièces et le kit arrivent ensemble."],
         kpi: [["Temps de montage", "minutes par caisson"], ["Travail en attente", "nombre de commandes en attente"]] },
       z5: { step: "Étape 05 · Zone Z5", title: "Emballage + qualité", machine: "Vérification finale, protection, emballage et étiquetage",
-        fr: ["L’emballage se trouve au centre de l’atelier, loin de la sortie.", "Aucune vérification formelle avant l’emballage.", "Les boîtes ne sont pas toujours clairement associées à leur commande."],
+        fr: ["Aucune zone d’emballage définie\u00a0: les produits finis attendent près de l’entrée.", "Aucune vérification formelle avant l’emballage.", "Les boîtes ne sont pas toujours clairement associées à leur commande."],
         lv: ["Une courte liste de vérification par type de meuble avant l’emballage.", "Un poste d’emballage avec tout le matériel à portée de main.", "Une étiquette par boîte et une liste de colisage pour chaque commande."],
         kpi: [["Meubles repris", "% repris avant le départ"], ["Temps d’emballage", "minutes par meuble"]] },
       z6: { step: "Sortie · OUT", title: "Livraison", machine: "Zone «\u00a0prêt à charger\u00a0» et porte de sortie dédiée",
@@ -683,7 +713,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         lv: ["Run parts in batches, grouped by edge colour.", "A return cart so parts come straight back to the operator.", "Check the first part, with a settings sheet for each type of edge."],
         kpi: [["Touch-ups", "% of parts to redo"], ["Output", "linear feet of edge / hour"]] },
       z3: { step: "Stage 03 · Zone Z3", title: "Hardware", machine: "Blum drilling and install: hinges, slides",
-        fr: ["Hinge and slide holes are drilled one part at a time.", "People look for hardware while they're assembling.", "It's easy to drill the wrong side or the wrong size on a door."],
+        fr: ["Hinge and slide holes are drilled one part at a time.", "The Blum station is at the far end of the shop, far from the CNC.", "It's easy to drill the wrong side or the wrong size on a door."],
         lv: ["35 mm holes and the 32 mm system programmed straight into the CNC.", "A hardware kit prepared ahead for each order, in a labelled bin.", "Mistake-proof jigs for the remaining holes."],
         kpi: [["Drilling errors", "parts redone / week"], ["Kit prep", "minutes per order"]] },
       z4: { step: "Stage 04 · Zone Z4", title: "Assembly", machine: "Cabinet and furniture assembly, with the miter saw and table saw close at hand", tag: "star",
@@ -691,7 +721,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
         lv: ["One assembly zone: benches at the right height, every tool in its place (5S).", "A cabinet clamp and a standard assembly sheet for each type of furniture.", "One cart per order: the parts and the kit arrive together."],
         kpi: [["Assembly time", "minutes per cabinet"], ["Work waiting", "orders on hold"]] },
       z5: { step: "Stage 05 · Zone Z5", title: "Packing + QC", machine: "Final check, protection, boxes and labels",
-        fr: ["Packing sits in the middle of the shop, far from the exit.", "No clear check before a piece is packed.", "Boxes aren't always clearly tied to their order."],
+        fr: ["No defined packing area: finished goods wait near the entrance.", "No clear check before a piece is packed.", "Boxes aren't always clearly tied to their order."],
         lv: ["A short checklist for each type of furniture before packing.", "A packing station with all supplies at hand.", "One label per box and a packing list for every order."],
         kpi: [["Furniture reworked", "% reworked before leaving"], ["Packing time", "minutes per piece"]] },
       z6: { step: "Exit · OUT", title: "Shipping", machine: "A ready-to-load area and a dedicated exit door",

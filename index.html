@@ -1,0 +1,797 @@
+<!doctype html>
+<html lang="fr-CA">
+<head>
+<style>
+:root { color-scheme: light; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+body { margin: 0; }
+img { max-width: 100%; }
+[hidden] { display: none !important; }
+</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Atelier en flux continu</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Manrope:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: shop-floor signage — a hero band carrying the six stages as floor markings, then one interactive plan where each stage lights up its zone. */
+:root {
+  --bg: #e9edee;
+  --surface: #f8fafa;
+  --ink: #0f1b22;
+  --muted: #55646d;
+  --rule: #c9d2d5;
+  --green: #1f5a47;
+  --green-soft: #d6e7df;
+  --birch: #d4a453;
+  --birch-ink: #8a5c12;
+  --birch-soft: #f4e6c9;
+  --critical: #c13b2b;
+  --critical-soft: #f6dcd7;
+  --plan: #2b5f86;
+  --plan-soft: #dde7ee;
+  --band-bg: #dce4e2;
+  --band-fg: #0f1b22;
+  --band-muted: #4b5a62;
+  --band-rule: #bccac7;
+  --band-accent: #8a5c12;
+  --f-display: "Big Shoulders Display", "Arial Narrow", Impact, sans-serif;
+  --f-body: "Manrope", "Segoe UI", Roboto, sans-serif;
+  --f-mono: "JetBrains Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1519; --surface: #152027; --ink: #e4eaec; --muted: #95a5ad; --rule: #27353d;
+    --green: #6cc0a0; --green-soft: #173229; --birch: #e2b86c; --birch-ink: #e8c27c; --birch-soft: #33280f;
+    --critical: #ff7b69; --critical-soft: #3a1e1a; --plan: #82b4dc; --plan-soft: #1b2b38;
+    --band-bg: #090f12; --band-fg: #eef2f3; --band-muted: #93a5ae; --band-rule: #22313a; --band-accent: #e2b86c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1519; --surface: #152027; --ink: #e4eaec; --muted: #95a5ad; --rule: #27353d;
+  --green: #6cc0a0; --green-soft: #173229; --birch: #e2b86c; --birch-ink: #e8c27c; --birch-soft: #33280f;
+  --critical: #ff7b69; --critical-soft: #3a1e1a; --plan: #82b4dc; --plan-soft: #1b2b38;
+  --band-bg: #090f12; --band-fg: #eef2f3; --band-muted: #93a5ae; --band-rule: #22313a; --band-accent: #e2b86c;
+  color-scheme: dark;
+}
+
+/* language switch: French by default */
+html:not([data-lang="en"]) [data-l="en"] { display: none !important; }
+html[data-lang="en"] [data-l="fr"] { display: none !important; }
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 1160px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3, h4 { margin: 0; text-wrap: balance; }
+p { margin: 0; }
+.mono { font-family: var(--f-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; }
+.num { font-variant-numeric: tabular-nums; }
+.disp { font-family: var(--f-display); text-transform: uppercase; letter-spacing: .01em; line-height: .92; }
+.ico { width: 11px; height: 11px; flex: none; fill: currentColor; }
+
+/* ---------- Hero ---------- */
+.hero { background: var(--band-bg); color: var(--band-fg); position: relative; overflow: hidden; }
+.hero::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 10px;
+  background: repeating-linear-gradient(-45deg, var(--birch) 0 16px, transparent 16px 32px);
+}
+.hero .wrap { padding-block: 24px 72px; }
+.topbar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 12px 24px; color: var(--band-muted); border-bottom: 1px solid var(--band-rule); padding-bottom: 14px; }
+.controls { display: flex; flex-wrap: wrap; gap: 10px; }
+.seg { display: inline-flex; border: 1px solid var(--band-rule); border-radius: 99px; padding: 3px; gap: 2px; }
+.seg button {
+  appearance: none; border: 0; background: transparent; color: var(--band-muted); cursor: pointer;
+  font: 600 12.5px var(--f-body); padding: 6px 12px; border-radius: 99px; display: inline-flex; align-items: center; gap: 6px;
+}
+.seg button svg { width: 14px; height: 14px; fill: none; stroke: currentColor; stroke-width: 2; }
+.seg button:hover { color: var(--band-fg); }
+.seg button[aria-pressed="true"] { background: var(--band-fg); color: var(--band-bg); }
+.seg button:focus-visible { outline: 2px solid var(--birch); outline-offset: 2px; }
+.hero-main { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 48px; align-items: end; margin-top: 56px; }
+.hero h1 { font-size: clamp(54px, 10vw, 128px); font-weight: 900; }
+.hero h1 span { color: var(--band-accent); }
+.hero .lead { font-size: 18px; max-width: 46ch; }
+.hero .lead + .lead { color: var(--band-muted); font-size: 15.5px; margin-top: 14px; }
+
+.stages { list-style: none; margin: 64px 0 0; padding: 0; display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
+.stages li { min-width: 0; }
+.stages a {
+  display: grid; gap: 6px; align-content: start; height: 100%; color: inherit; text-decoration: none;
+  border-top: 4px solid var(--birch); padding: 14px 12px 16px 0; transition: border-color .2s ease;
+}
+.stages a:hover, .stages a:focus-visible { border-top-color: var(--band-fg); outline: none; }
+.stages a:focus-visible .st-name { text-decoration: underline; text-underline-offset: 4px; }
+.st-n { font-family: var(--f-display); font-size: 40px; font-weight: 800; color: var(--band-accent); line-height: 1; }
+.st-name { font-weight: 700; font-size: 16px; line-height: 1.25; }
+.st-sub { font-size: 13px; color: var(--band-muted); line-height: 1.4; }
+.stages li.star a { border-top-color: var(--critical); }
+.stages li.star .st-n { color: var(--critical); }
+.stages li.out a { border-top-style: dashed; }
+.tag { display: inline-flex; align-items: center; gap: 6px; font-family: var(--f-mono); font-size: 10.5px; letter-spacing: .06em; text-transform: uppercase; padding: 3px 8px; border-radius: 99px; width: max-content; max-width: 100%; }
+.tag.heart { background: var(--birch-soft); color: var(--birch-ink); }
+.tag.star { background: var(--critical-soft); color: var(--critical); }
+@media (max-width: 900px) {
+  .hero-main { grid-template-columns: 1fr; gap: 28px; margin-top: 40px; }
+  .stages { grid-template-columns: repeat(3, minmax(0, 1fr)); row-gap: 18px; margin-top: 44px; }
+}
+@media (max-width: 520px) { .stages { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* ---------- Sections ---------- */
+section.block { padding-block: 88px; }
+section.block + section.block { border-top: 1px solid var(--rule); }
+.head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 20px 56px; align-items: end; margin-bottom: 40px; }
+.head .kicker { color: var(--birch-ink); margin-bottom: 14px; }
+.head h2 { font-family: var(--f-display); font-weight: 800; text-transform: uppercase; font-size: clamp(40px, 6vw, 72px); line-height: .95; }
+.head p { color: var(--muted); max-width: 58ch; }
+@media (max-width: 860px) { .head { grid-template-columns: 1fr; } section.block { padding-block: 60px; } }
+
+.sheet { background: var(--surface); border: 1px solid var(--rule); }
+.plan-scroll { overflow-x: auto; padding: 16px; }
+.plan-scroll svg { display: block; width: 100%; min-width: 760px; height: auto; }
+.sheet-foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px; padding: 12px 16px; border-top: 1px solid var(--rule); color: var(--muted); }
+.dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; vertical-align: middle; margin-right: 6px; }
+
+/* SVG plan styling */
+.p-wall { fill: none; stroke: var(--ink); stroke-width: 3; }
+.p-part { stroke: var(--ink); stroke-width: 6; }
+.p-box { fill: var(--plan-soft); stroke: var(--plan); stroke-width: 1.5; }
+.p-store { fill: var(--birch-soft); stroke: var(--birch); stroke-width: 1.5; }
+.p-hot { fill: var(--critical-soft); stroke: var(--critical); stroke-width: 1.5; }
+.p-pack { fill: var(--green-soft); stroke: var(--green); stroke-width: 1.5; }
+.p-zone { fill: none; stroke: var(--muted); stroke-width: 1; stroke-dasharray: 4 5; }
+.p-t { fill: var(--ink); font: 600 12px var(--f-body); }
+.p-s { fill: var(--muted); font: 500 10px var(--f-mono); letter-spacing: .04em; }
+.p-z { fill: var(--plan); font: 500 11px var(--f-mono); letter-spacing: .08em; }
+.p-door { fill: var(--surface); stroke: none; }
+.p-doortxt { fill: var(--ink); font: 600 12px var(--f-mono); letter-spacing: .08em; }
+.p-flow-bad { fill: none; stroke: var(--critical); stroke-width: 2.4; stroke-dasharray: 7 6; stroke-linejoin: round; }
+.p-flow-good { fill: none; stroke: var(--birch); stroke-width: 6; stroke-linecap: round; stroke-dasharray: 16 10; animation: march 1.4s linear infinite; }
+.p-arrow-bad { fill: var(--critical); }
+.p-arrow-good { fill: var(--birch); }
+.p-step { fill: var(--critical); }
+.p-stepn { fill: var(--surface); font: 600 10px var(--f-mono); text-anchor: middle; }
+@keyframes march { to { stroke-dashoffset: -26; } }
+
+/* ---------- Constat ---------- */
+.constat { display: grid; grid-template-columns: minmax(0, 2.2fr) minmax(0, 1fr); gap: 24px; align-items: start; }
+.facts { display: grid; gap: 1px; background: var(--rule); border: 1px solid var(--rule); }
+.fact { background: var(--surface); padding: 18px 20px; display: grid; grid-template-columns: 56px 1fr; gap: 14px; align-items: center; }
+.fact b { font-family: var(--f-display); font-size: 56px; font-weight: 900; color: var(--critical); line-height: .9; text-align: center; }
+.fact span { font-size: 14.5px; line-height: 1.4; }
+@media (max-width: 960px) { .constat { grid-template-columns: 1fr; } .facts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .facts { grid-template-columns: 1fr; } }
+
+/* ---------- Explorer ---------- */
+.explorer { background: var(--surface); border: 1px solid var(--rule); }
+.ztabs { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); border-bottom: 1px solid var(--rule); }
+.ztabs button {
+  appearance: none; border: 0; background: transparent; color: var(--ink); cursor: pointer; text-align: left;
+  padding: 16px 16px 14px; display: grid; gap: 2px; align-content: start; font: inherit; border-right: 1px solid var(--rule);
+  border-bottom: 4px solid transparent; transition: background .15s ease;
+}
+.ztabs button:last-child { border-right: 0; }
+.ztabs button:hover { background: var(--bg); }
+.ztabs button:focus-visible { outline: 2px solid var(--plan); outline-offset: -2px; }
+.ztabs .zn { font-family: var(--f-display); font-weight: 800; font-size: 28px; line-height: 1; color: var(--muted); }
+.ztabs .zl { font-weight: 700; font-size: 14px; line-height: 1.25; }
+.ztabs button[aria-selected="true"] { border-bottom-color: var(--birch); background: var(--bg); }
+.ztabs button[aria-selected="true"] .zn { color: var(--birch-ink); }
+.ztabs button.star .zn { color: var(--critical); }
+.ztabs button.star[aria-selected="true"] { border-bottom-color: var(--critical); }
+@media (max-width: 860px) {
+  .ztabs { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .ztabs button:nth-child(3n) { border-right: 0; }
+  .ztabs button:nth-child(-n+3) { box-shadow: inset 0 -1px 0 var(--rule); }
+}
+
+.zbg { fill: transparent; transition: fill .25s ease; }
+.zone { transition: opacity .25s ease; }
+#plan-b[data-active] .zone { opacity: .28; }
+#plan-b[data-active="z1"] .zone[data-zone="z1"],
+#plan-b[data-active="z2"] .zone[data-zone="z2"],
+#plan-b[data-active="z3"] .zone[data-zone="z3"],
+#plan-b[data-active="z4"] .zone[data-zone="z4"],
+#plan-b[data-active="z5"] .zone[data-zone="z5"],
+#plan-b[data-active="z6"] .zone[data-zone="z6"] { opacity: 1; }
+#plan-b[data-active="z1"] .zone[data-zone="z1"] .zbg,
+#plan-b[data-active="z2"] .zone[data-zone="z2"] .zbg,
+#plan-b[data-active="z3"] .zone[data-zone="z3"] .zbg,
+#plan-b[data-active="z5"] .zone[data-zone="z5"] .zbg,
+#plan-b[data-active="z6"] .zone[data-zone="z6"] .zbg { fill: color-mix(in srgb, var(--birch) 16%, transparent); }
+#plan-b[data-active="z4"] .zone[data-zone="z4"] .zbg { fill: color-mix(in srgb, var(--critical) 12%, transparent); }
+
+.detail { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr) minmax(0, 1fr) minmax(0, .9fr); border-top: 1px solid var(--rule); }
+.detail > div { padding: 24px; min-width: 0; }
+.detail > div + div { border-left: 1px solid var(--rule); }
+.d-id { display: grid; gap: 10px; align-content: start; }
+.d-id h3 { font-family: var(--f-display); font-weight: 800; text-transform: uppercase; font-size: 40px; line-height: .95; }
+.d-id .machine { color: var(--muted); font-size: 14px; }
+.d-col h4, .d-kpi h4 { color: var(--muted); margin-bottom: 12px; }
+.d-col ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; font-size: 15px; line-height: 1.45; }
+.d-col li { padding-left: 18px; position: relative; }
+.d-col.fr li::before { content: ""; position: absolute; left: 0; top: .66em; width: 9px; height: 2px; background: var(--critical); }
+.d-col.lv li::before { content: ""; position: absolute; left: 0; top: .42em; width: 8px; height: 8px; background: var(--birch); }
+.d-kpi { background: var(--bg); display: grid; gap: 4px; align-content: start; }
+.d-kpi strong { font-weight: 700; font-size: 16px; line-height: 1.3; }
+.d-kpi span { font-family: var(--f-mono); font-size: 11.5px; color: var(--muted); margin-bottom: 10px; }
+.d-nav { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+.d-nav button { appearance: none; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); font: 600 13px var(--f-body); padding: 8px 12px; cursor: pointer; }
+.d-nav button:hover { border-color: var(--ink); }
+.d-nav button:focus-visible { outline: 2px solid var(--plan); outline-offset: 2px; }
+.d-nav button:disabled { opacity: .4; cursor: default; border-color: var(--rule); }
+@media (max-width: 1000px) {
+  .detail { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .d-id, .d-kpi { grid-column: 1 / -1; }
+  .detail > div + div { border-left: 0; border-top: 1px solid var(--rule); }
+  .d-col.lv { border-left: 1px solid var(--rule) !important; }
+}
+@media (max-width: 620px) { .detail { grid-template-columns: 1fr; } .d-col.lv { border-left: 0 !important; } }
+
+/* ---------- Two trades ---------- */
+.trades { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
+.trade { padding: 28px; border: 1px solid var(--rule); display: grid; gap: 16px; align-content: start; background: var(--surface); }
+.trade.modern { border-color: var(--birch); }
+.trade h3 { font-family: var(--f-display); font-weight: 800; text-transform: uppercase; font-size: 34px; line-height: 1; }
+.trade .lbl { color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
+.chips span { font-family: var(--f-mono); font-size: 12.5px; padding: 6px 10px; border: 1px solid var(--rule); background: var(--bg); }
+.chips i { font-style: normal; color: var(--muted); }
+.trade.modern .chips span { background: var(--birch-soft); border-color: var(--birch); }
+.trade p { color: var(--muted); font-size: 15px; }
+.trade .fit { color: var(--ink); border-top: 1px solid var(--rule); padding-top: 14px; font-weight: 600; }
+.reco { margin-top: 20px; background: var(--green-soft); padding: 20px 24px; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 18px; }
+.reco .mono { color: var(--green); padding-top: 3px; }
+@media (max-width: 760px) { .trades { grid-template-columns: 1fr; } .reco { grid-template-columns: 1fr; gap: 6px; } }
+
+/* ---------- Roadmap ---------- */
+.road { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.road li { background: var(--surface); border: 1px solid var(--rule); padding: 22px; display: grid; gap: 10px; align-content: start; }
+.road li:last-child { border-color: var(--birch); background: var(--birch-soft); }
+.road .ph { font-family: var(--f-display); font-weight: 900; font-size: 64px; line-height: .8; color: var(--birch-ink); }
+.road .when { color: var(--muted); }
+.road h3 { font-size: 20px; font-weight: 700; }
+.road p { color: var(--muted); font-size: 14.5px; }
+.road-note { margin-top: 16px; color: var(--muted); font-size: 13px; }
+@media (max-width: 900px) { .road { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .road { grid-template-columns: 1fr; } }
+
+/* ---------- Close ---------- */
+.close { background: var(--band-bg); color: var(--band-fg); position: relative; }
+.close::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 10px; background: repeating-linear-gradient(-45deg, var(--birch) 0 16px, transparent 16px 32px); }
+.close .wrap { padding-block: 88px; display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 48px; align-items: end; }
+.close h2 { font-family: var(--f-display); font-weight: 900; text-transform: uppercase; font-size: clamp(44px, 7vw, 88px); line-height: .92; margin-top: 14px; }
+.close h2 span { color: var(--band-accent); }
+.close .kick { color: var(--band-accent); }
+.close p.body { color: var(--band-muted); max-width: 50ch; margin-top: 20px; }
+.spec { margin: 0; display: grid; }
+.spec div { display: flex; justify-content: space-between; gap: 16px; padding-block: 12px; border-top: 1px solid var(--band-rule); }
+.spec dt { color: var(--band-muted); font-family: var(--f-mono); font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
+.spec dd { margin: 0; font-weight: 600; text-align: right; }
+@media (max-width: 760px) { .close .wrap { grid-template-columns: 1fr; padding-block: 64px; } }
+footer { padding-block: 24px; color: var(--muted); }
+footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .p-flow-good { animation: none; }
+  .zbg, .zone, .stages a, .ztabs button { transition: none; }
+}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="topbar">
+      <span class="mono">
+        <span data-l="fr">Ébenpro · avant-projet · préparé par Pablo Herrera</span>
+        <span data-l="en">Ébenpro · pre-project · prepared by Pablo Herrera</span>
+      </span>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Langue / Language">
+          <button type="button" data-set-lang="fr" aria-pressed="true">FR</button>
+          <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+        </div>
+        <div class="seg" role="group" aria-label="Thème / Theme">
+          <button type="button" data-set-theme="light" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+            <span data-l="fr">Clair</span><span data-l="en">Light</span>
+          </button>
+          <button type="button" data-set-theme="dark" aria-pressed="false">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg>
+            <span data-l="fr">Sombre</span><span data-l="en">Dark</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-main">
+      <h1 class="disp">
+        <span data-l="fr" style="color:inherit">Du panneau brut au camion, <span>sans détour.</span></span>
+        <span data-l="en" style="color:inherit">From raw panel to truck, <span>no turning back.</span></span>
+      </h1>
+      <div>
+        <p class="lead" data-l="fr">Chez Ébenpro, l’atelier a déjà les bonnes machines. Ce qui coûte du temps, c’est le chemin que les pièces parcourent entre elles.</p>
+        <p class="lead" data-l="en">At Ébenpro, the shop already has the right machines. What eats up your time is all the back and forth the parts make between them.</p>
+        <p class="lead" data-l="fr">Nous vous proposons d’organiser l’atelier en ligne droite&nbsp;: les panneaux entrent d’un côté, les meubles sortent de l’autre. Ensuite, nous améliorons chaque poste, un à la fois.</p>
+        <p class="lead" data-l="en">We suggest setting up the shop as one straight line: panels come in one side, furniture goes out the other. Then we improve each station, one at a time.</p>
+      </div>
+    </div>
+
+    <ol class="stages">
+      <li><a href="#proposition" data-go="z1">
+        <span class="st-n num">01</span>
+        <span class="st-name"><span data-l="fr">Coupe</span><span data-l="en">Cutting</span></span>
+        <span class="st-sub">CNC</span>
+        <span class="tag heart"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.1 0 3.5 1.1 4.3 2.4.8-1.3 2.2-2.4 4.3-2.4 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z"/></svg><span data-l="fr">Le cœur</span><span data-l="en">The heart</span></span>
+      </a></li>
+      <li><a href="#proposition" data-go="z2">
+        <span class="st-n num">02</span>
+        <span class="st-name"><span data-l="fr">Bande de chant</span><span data-l="en">Edge banding</span></span>
+        <span class="st-sub"><span data-l="fr">Bandeuse</span><span data-l="en">Edgebander</span></span>
+      </a></li>
+      <li><a href="#proposition" data-go="z3">
+        <span class="st-n num">03</span>
+        <span class="st-name"><span data-l="fr">Quincaillerie</span><span data-l="en">Hardware</span></span>
+        <span class="st-sub"><span data-l="fr">Perçage Blum</span><span data-l="en">Blum drilling</span></span>
+      </a></li>
+      <li class="star"><a href="#proposition" data-go="z4">
+        <span class="st-n num">04</span>
+        <span class="st-name"><span data-l="fr">Assemblage</span><span data-l="en">Assembly</span></span>
+        <span class="st-sub"><span data-l="fr">Montage des caissons</span><span data-l="en">Cabinet assembly</span></span>
+        <span class="tag star"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5l2.9 6.2 6.8.8-5 4.6 1.4 6.7L12 17.5l-6.1 3.3 1.4-6.7-5-4.6 6.8-.8z"/></svg><span data-l="fr">Priorité</span><span data-l="en">Priority</span></span>
+      </a></li>
+      <li><a href="#proposition" data-go="z5">
+        <span class="st-n num">05</span>
+        <span class="st-name"><span data-l="fr">Emballage</span><span data-l="en">Packing</span></span>
+        <span class="st-sub"><span data-l="fr">+ contrôle qualité</span><span data-l="en">+ quality check</span></span>
+      </a></li>
+      <li class="out"><a href="#proposition" data-go="z6">
+        <span class="st-n">OUT</span>
+        <span class="st-name"><span data-l="fr">Livraison</span><span data-l="en">Shipping</span></span>
+        <span class="st-sub"><span data-l="fr">Chargement du camion</span><span data-l="en">Truck loading</span></span>
+      </a></li>
+    </ol>
+  </div>
+</header>
+
+<section class="block" id="constat">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <p class="mono kicker"><span data-l="fr">01 · Ce que nous avons observé</span><span data-l="en">01 · What we saw</span></p>
+        <h2><span data-l="fr">Votre atelier aujourd’hui</span><span data-l="en">Your shop today</span></h2>
+      </div>
+      <p data-l="fr">Plan dessiné à partir de notre visite, sans échelle. La ligne rouge suit le trajet d’un meuble&nbsp;: du stock à la CNC, de l’autre côté du mur, d’un poste à l’autre, puis retour à la seule porte de l’atelier.</p>
+      <p data-l="en">Plan drawn from our visit, not to scale. The red line follows one piece of furniture: from stock to the CNC, through the wall, from station to station, then back to the shop's only door.</p>
+    </div>
+    <div class="constat">
+      <div class="sheet">
+        <div class="plan-scroll">
+          <svg viewBox="0 0 1000 370" role="img" aria-label="Plan A">
+            <defs>
+              <marker id="ab" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path class="p-arrow-bad" d="M0 0L10 5L0 10z"/></marker>
+            </defs>
+            <rect class="p-box" x="292" y="10" width="100" height="40"/><text class="p-t" x="314" y="35" data-l="fr">Bureaux</text><text class="p-t" x="318" y="35" data-l="en">Offices</text>
+            <rect class="p-box" x="872" y="10" width="80" height="40"/><text class="p-t" x="896" y="35">Café</text>
+
+            <rect class="p-wall" x="20" y="60" width="940" height="290"/>
+            <rect class="p-door" x="14" y="286" width="12" height="58"/>
+            <text class="p-doortxt" x="20" y="367" data-l="fr">PORTE · ENTRÉE + SORTIE</text><text class="p-doortxt" x="20" y="367" data-l="en">DOOR · IN + OUT</text>
+            <line class="p-part" x1="438" y1="60" x2="438" y2="296"/>
+            <text class="p-s" x="414" y="366">PASSAGE ↑</text>
+
+            <rect class="p-store" x="34" y="72" width="76" height="66"/><text class="p-t" x="50" y="109">Stock</text>
+            <rect class="p-store" x="118" y="72" width="50" height="50"/><text class="p-t" x="124" y="101">Stock</text>
+            <rect class="p-box" x="38" y="226" width="60" height="52"/><text class="p-t" x="56" y="256">Lift</text>
+            <rect class="p-box" x="178" y="120" width="88" height="60"/><text class="p-t" x="208" y="154">CNC</text>
+            <rect class="p-store" x="240" y="72" width="34" height="38"/><text class="p-s" x="282" y="94" data-l="fr">RANGEMENT</text><text class="p-s" x="282" y="94" data-l="en">STORAGE</text>
+            <rect class="p-box" x="142" y="194" width="140" height="38"/><text class="p-t" x="150" y="218" data-l="fr">Bandeuse de chant</text><text class="p-t" x="150" y="218" data-l="en">Edgebander</text>
+            <rect class="p-box" x="196" y="260" width="48" height="52"/><text class="p-s" x="250" y="296" data-l="fr">SCIE À</text><text class="p-s" x="250" y="309" data-l="fr">PANNEAUX?</text><text class="p-s" x="250" y="296" data-l="en">PANEL</text><text class="p-s" x="250" y="309" data-l="en">SAW ?</text>
+            <rect class="p-box" x="330" y="230" width="92" height="58"/><text class="p-t" x="346" y="264" data-l="fr">Sableuse</text><text class="p-t" x="350" y="264" data-l="en">Sander</text>
+            <rect class="p-box" x="352" y="108" width="50" height="58"/>
+
+            <rect class="p-store" x="446" y="72" width="54" height="90"/><text class="p-t" x="456" y="121">Stock</text>
+            <rect class="p-hot" x="512" y="64" width="50" height="34"/><text class="p-t" x="520" y="86" data-l="fr">Poste</text><text class="p-t" x="516" y="86" data-l="en">Station</text>
+            <rect class="p-hot" x="568" y="64" width="58" height="34"/><text class="p-t" x="574" y="86" data-l="fr">Poste 1</text><text class="p-t" x="574" y="86" data-l="en">Stn 1</text>
+            <rect class="p-hot" x="640" y="64" width="58" height="34"/><text class="p-t" x="646" y="86" data-l="fr">Poste 2</text><text class="p-t" x="646" y="86" data-l="en">Stn 2</text>
+            <rect class="p-hot" x="540" y="112" width="56" height="46"/><text class="p-t" x="550" y="140" data-l="fr">Établi</text><text class="p-t" x="550" y="140" data-l="en">Bench</text>
+            <rect class="p-box" x="500" y="226" width="106" height="62"/><text class="p-t" x="512" y="254" data-l="fr">Banc de</text><text class="p-t" x="512" y="270" data-l="fr">scie</text><text class="p-t" x="512" y="262" data-l="en">Table saw</text>
+            <rect class="p-pack" x="640" y="152" width="90" height="40"/><text class="p-t" x="652" y="177" data-l="fr">Emballage</text><text class="p-t" x="660" y="177" data-l="en">Packing</text>
+            <rect class="p-box" x="664" y="228" width="70" height="56"/><text class="p-t" x="672" y="253" data-l="fr">Banc de</text><text class="p-t" x="672" y="269" data-l="fr">scie</text><text class="p-t" x="670" y="261" data-l="en">Table saw</text>
+            <rect class="p-box" x="760" y="296" width="100" height="44"/><text class="p-t" x="768" y="322" data-l="fr">Scie à onglet</text><text class="p-t" x="772" y="322" data-l="en">Miter saw</text>
+            <rect class="p-box" x="760" y="64" width="104" height="92"/><text class="p-t" x="772" y="108" data-l="fr">Cabine de</text><text class="p-t" x="772" y="124" data-l="fr">peinture</text><text class="p-t" x="772" y="108" data-l="en">Paint</text><text class="p-t" x="772" y="124" data-l="en">booth</text>
+            <rect class="p-store" x="896" y="196" width="58" height="80"/><text class="p-s" x="900" y="232" data-l="fr">ENTREPOS.</text><text class="p-s" x="902" y="232" data-l="en">STORAGE</text><text class="p-s" x="902" y="248">?</text>
+
+            <path class="p-flow-bad" marker-end="url(#ab)" d="M30 300 L110 138 L266 120 L282 232 L422 230 L446 318 L606 226 L626 98 L596 158 L698 98 L760 296 L864 156 L730 192 L748 214 L748 336 L448 340 L30 330"/>
+            <g>
+              <circle class="p-step" cx="266" cy="120" r="9"/><text class="p-stepn" x="266" y="123.5">1</text>
+              <circle class="p-step" cx="282" cy="232" r="9"/><text class="p-stepn" x="282" y="235.5">2</text>
+              <circle class="p-step" cx="422" cy="230" r="9"/><text class="p-stepn" x="422" y="233.5">3</text>
+              <circle class="p-step" cx="606" cy="226" r="9"/><text class="p-stepn" x="606" y="229.5">4</text>
+              <circle class="p-step" cx="626" cy="98" r="9"/><text class="p-stepn" x="626" y="101.5">5</text>
+              <circle class="p-step" cx="596" cy="158" r="9"/><text class="p-stepn" x="596" y="161.5">6</text>
+              <circle class="p-step" cx="698" cy="98" r="9"/><text class="p-stepn" x="698" y="101.5">7</text>
+              <circle class="p-step" cx="760" cy="296" r="9"/><text class="p-stepn" x="760" y="299.5">8</text>
+              <circle class="p-step" cx="864" cy="156" r="9"/><text class="p-stepn" x="864" y="159.5">9</text>
+              <circle class="p-step" cx="730" cy="192" r="10"/><text class="p-stepn" x="730" y="195.5">10</text>
+            </g>
+          </svg>
+        </div>
+        <div class="sheet-foot mono">
+          <span><span data-l="fr">Plan A · aujourd’hui</span><span data-l="en">Plan A · today</span></span>
+          <span><span class="dot" style="background:var(--critical)"></span><span data-l="fr">Trajet d’un meuble</span><span data-l="en">Path of one piece</span></span>
+        </div>
+      </div>
+      <div class="facts">
+        <div class="fact"><b class="num">1</b><span data-l="fr">seule porte pour l’entrée des panneaux et la sortie des meubles</span><span data-l="en">single door to bring panels in and ship furniture out</span></div>
+        <div class="fact"><b class="num">2</b><span data-l="fr">passages à travers le mur&nbsp;: à l’aller, puis au retour vers la porte</span><span data-l="en">trips through the wall: on the way in, and back to the door</span></div>
+        <div class="fact"><b class="num">4</b><span data-l="fr">postes de montage dispersés (Poste, Poste&nbsp;1, Poste&nbsp;2, établi)</span><span data-l="en">assembly stations spread out (three stations and a bench)</span></div>
+        <div class="fact"><b class="num">4</b><span data-l="fr">zones d’entreposage, dont une sans usage défini</span><span data-l="en">stock areas, one of them with no clear purpose</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="proposition">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <p class="mono kicker"><span data-l="fr">02 · Notre proposition</span><span data-l="en">02 · Our proposal</span></p>
+        <h2><span data-l="fr">Une ligne droite, de l’entrée à la sortie</span><span data-l="en">One straight line, in to out</span></h2>
+      </div>
+      <p data-l="fr">Les zones suivent l’ordre de fabrication, de gauche à droite. Les racks de panneaux longent le mur, juste au pied de la CNC. Cliquez sur une étape pour voir sa zone sur le plan, ses irritants, nos pistes de solution et les indicateurs à suivre.</p>
+      <p data-l="en">The zones follow the order of the work, left to right. Panel racks run along the wall, right at the foot of the CNC. Click a stage to see its zone on the plan, what slows it down, what we suggest and what to measure.</p>
+    </div>
+
+    <div class="explorer">
+      <div class="ztabs" role="tablist">
+        <button role="tab" id="t-z1" data-z="z1" aria-controls="detail"><span class="zn num">01</span><span class="zl"><span data-l="fr">Coupe CNC</span><span data-l="en">CNC cutting</span></span></button>
+        <button role="tab" id="t-z2" data-z="z2" aria-controls="detail"><span class="zn num">02</span><span class="zl"><span data-l="fr">Bande de chant</span><span data-l="en">Edge banding</span></span></button>
+        <button role="tab" id="t-z3" data-z="z3" aria-controls="detail"><span class="zn num">03</span><span class="zl"><span data-l="fr">Quincaillerie</span><span data-l="en">Hardware</span></span></button>
+        <button role="tab" id="t-z4" data-z="z4" class="star" aria-controls="detail"><span class="zn num">04 ★</span><span class="zl"><span data-l="fr">Assemblage</span><span data-l="en">Assembly</span></span></button>
+        <button role="tab" id="t-z5" data-z="z5" aria-controls="detail"><span class="zn num">05</span><span class="zl"><span data-l="fr">Emballage + qualité</span><span data-l="en">Packing + QC</span></span></button>
+        <button role="tab" id="t-z6" data-z="z6" aria-controls="detail"><span class="zn">OUT</span><span class="zl"><span data-l="fr">Livraison</span><span data-l="en">Shipping</span></span></button>
+      </div>
+
+      <div class="plan-scroll">
+        <svg id="plan-b" data-active="z1" viewBox="0 0 1000 370" role="img" aria-label="Plan B">
+          <defs>
+            <marker id="ag" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="4" markerHeight="4" orient="auto"><path class="p-arrow-good" d="M0 0L10 5L0 10z"/></marker>
+          </defs>
+          <g class="zone" data-zone="z1">
+            <rect class="zbg" x="21" y="41" width="161" height="308"/>
+            <text class="p-z" x="32" y="64" data-l="fr">Z1 · COUPE</text><text class="p-z" x="32" y="64" data-l="en">Z1 · CUTTING</text>
+            <rect class="p-box" x="46" y="150" width="86" height="62"/><text class="p-t" x="72" y="186">CNC</text>
+            <rect class="p-box" x="136" y="162" width="36" height="40"/><text class="p-s" x="140" y="186">TABLE</text>
+            <rect class="p-store" x="48" y="294" width="106" height="44"/><text class="p-t" x="60" y="321">Rack</text>
+            <rect class="p-store" x="162" y="294" width="106" height="44"/><text class="p-t" x="174" y="321">Rack</text>
+            <rect class="p-store" x="276" y="294" width="106" height="44"/><text class="p-t" x="288" y="321">Rack</text>
+          </g>
+          <g class="zone" data-zone="z2">
+            <rect class="zbg" x="182" y="41" width="95" height="240"/>
+            <text class="p-z" x="192" y="64" data-l="fr">Z2 · CHANT</text><text class="p-z" x="192" y="64" data-l="en">Z2 · EDGE</text>
+            <rect class="p-box" x="196" y="104" width="68" height="62"/><text class="p-t" x="206" y="130" data-l="fr">Bandeuse</text><text class="p-s" x="206" y="146" data-l="fr">DE CHANT</text><text class="p-t" x="204" y="138" data-l="en">Edgebander</text>
+          </g>
+          <g class="zone" data-zone="z3">
+            <rect class="zbg" x="277" y="41" width="108" height="240"/>
+            <text class="p-z" x="287" y="64" data-l="fr">Z3 · QUINC.</text><text class="p-z" x="287" y="64" data-l="en">Z3 · HARDWARE</text>
+            <rect class="p-box" x="292" y="104" width="80" height="44"/><text class="p-t" x="302" y="124" data-l="fr">Perçage</text><text class="p-t" x="302" y="124" data-l="en">Drilling</text><text class="p-t" x="302" y="140">Blum</text>
+            <rect class="p-store" x="292" y="158" width="80" height="30"/><text class="p-s" x="298" y="177" data-l="fr">KITS QUINC.</text><text class="p-s" x="298" y="177" data-l="en">HW KITS</text>
+          </g>
+          <g class="zone" data-zone="z4">
+            <rect class="zbg" x="385" y="41" width="263" height="308"/>
+            <text class="p-z" x="396" y="64" style="fill:var(--critical)" data-l="fr">Z4 · ASSEMBLAGE ★</text><text class="p-z" x="396" y="64" style="fill:var(--critical)" data-l="en">Z4 · ASSEMBLY ★</text>
+            <rect class="p-hot" x="396" y="90" width="44" height="44"/><text class="p-s" x="400" y="116" data-l="fr">ÉTABLI</text><text class="p-s" x="402" y="116" data-l="en">BENCH</text>
+            <rect class="p-hot" x="448" y="90" width="44" height="44"/><text class="p-s" x="452" y="116" data-l="fr">ÉTABLI</text><text class="p-s" x="454" y="116" data-l="en">BENCH</text>
+            <rect class="p-box" x="396" y="160" width="96" height="36"/><text class="p-t" x="404" y="183" data-l="fr">Scie à onglet</text><text class="p-t" x="410" y="183" data-l="en">Miter saw</text>
+            <rect class="p-hot" x="514" y="90" width="120" height="44"/><text class="p-t" x="524" y="117" data-l="fr">Postes de montage</text><text class="p-t" x="524" y="117" data-l="en">Assembly stations</text>
+            <rect class="p-box" x="540" y="150" width="74" height="54"/><text class="p-t" x="550" y="174" data-l="fr">Banc de</text><text class="p-t" x="550" y="190" data-l="fr">scie</text><text class="p-t" x="550" y="174" data-l="en">Table</text><text class="p-t" x="550" y="190" data-l="en">saw</text>
+          </g>
+          <g class="zone" data-zone="z5">
+            <rect class="zbg" x="648" y="41" width="156" height="308"/>
+            <text class="p-z" x="658" y="64" data-l="fr">Z5 · EMBALL. + QC</text><text class="p-z" x="658" y="64" data-l="en">Z5 · PACKING + QC</text>
+            <rect class="p-pack" x="662" y="90" width="128" height="58"/><text class="p-t" x="676" y="116" data-l="fr">Emballage</text><text class="p-t" x="676" y="116" data-l="en">Packing</text><text class="p-s" x="676" y="132" data-l="fr">MATÉRIEL À PORTÉE</text><text class="p-s" x="676" y="132" data-l="en">SUPPLIES AT HAND</text>
+            <rect class="p-box" x="662" y="160" width="128" height="40"/><text class="p-t" x="676" y="185" data-l="fr">Contrôle qualité</text><text class="p-t" x="676" y="185" data-l="en">Quality check</text>
+          </g>
+          <g class="zone" data-zone="z6">
+            <rect class="zbg" x="804" y="41" width="155" height="308"/>
+            <text class="p-z" x="814" y="64" data-l="fr">LIVRAISON</text><text class="p-z" x="814" y="64" data-l="en">SHIPPING</text>
+            <rect class="p-store" x="818" y="104" width="76" height="96"/><text class="p-s" x="826" y="146" data-l="fr">PRÊT À</text><text class="p-s" x="826" y="162" data-l="fr">CHARGER</text><text class="p-s" x="826" y="146" data-l="en">READY TO</text><text class="p-s" x="826" y="162" data-l="en">LOAD</text>
+          </g>
+          <rect class="p-box" x="880" y="44" width="76" height="46"/><text class="p-s" x="884" y="72" data-l="fr">CAFÉTÉRIA</text><text class="p-s" x="884" y="72" data-l="en">CAFETERIA</text>
+
+          <rect class="p-wall" x="20" y="40" width="940" height="310"/>
+          <rect class="p-door" x="14" y="226" width="12" height="56"/>
+          <text class="p-doortxt" x="30" y="220">IN</text>
+          <rect class="p-door" x="954" y="226" width="12" height="60"/>
+          <text class="p-doortxt" x="914" y="306">OUT</text>
+          <line class="p-part" x1="500" y1="40" x2="500" y2="228"/>
+          <line class="p-zone" x1="182" y1="48" x2="182" y2="272"/>
+          <line class="p-zone" x1="277" y1="48" x2="277" y2="272"/>
+          <line class="p-zone" x1="385" y1="48" x2="385" y2="342"/>
+          <line class="p-zone" x1="648" y1="48" x2="648" y2="342"/>
+          <line class="p-zone" x1="804" y1="48" x2="804" y2="342"/>
+          <path class="p-flow-good" marker-end="url(#ag)" d="M28 254 L940 254"/>
+        </svg>
+      </div>
+
+      <div class="detail" id="detail" role="tabpanel" aria-live="polite">
+        <div class="d-id">
+          <p class="mono" id="d-step" style="color:var(--birch-ink)"></p>
+          <h3 id="d-title"></h3>
+          <p class="machine" id="d-machine"></p>
+          <div id="d-tag"></div>
+          <div class="d-nav">
+            <button id="d-prev" type="button"><span data-l="fr">← Précédente</span><span data-l="en">← Previous</span></button>
+            <button id="d-next" type="button"><span data-l="fr">Suivante →</span><span data-l="en">Next →</span></button>
+          </div>
+        </div>
+        <div class="d-col fr"><h4 class="mono"><span data-l="fr">Irritants</span><span data-l="en">What slows it down</span></h4><ul id="d-fr"></ul></div>
+        <div class="d-col lv"><h4 class="mono"><span data-l="fr">Pistes de solution</span><span data-l="en">What we suggest</span></h4><ul id="d-lv"></ul></div>
+        <div class="d-kpi"><h4 class="mono"><span data-l="fr">Indicateurs à suivre</span><span data-l="en">What to measure</span></h4><div id="d-kpi" style="display:grid;gap:2px"></div></div>
+      </div>
+    </div>
+    <div class="sheet-foot mono" style="border:0;padding-inline:0">
+      <span><span data-l="fr">Plan B · proposition, sans échelle</span><span data-l="en">Plan B · proposal, not to scale</span></span>
+      <span><span class="dot" style="background:var(--birch)"></span><span data-l="fr">Parcours des pièces</span><span data-l="en">Path of the parts</span></span>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="metiers">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <p class="mono kicker"><span data-l="fr">03 · Deux façons de travailler</span><span data-l="en">03 · Two ways of working</span></p>
+        <h2><span data-l="fr">Traditionnel et moderne</span><span data-l="en">Traditional and modern</span></h2>
+      </div>
+      <p data-l="fr">Votre atelier fait les deux dans le même espace. C’est tout à fait normal, mais ces deux façons de travailler n’ont pas les mêmes besoins, et les mélanger ralentit la production en série.</p>
+      <p data-l="en">Your shop does both in the same space. That's fine, but they don't need the same things, and mixing them slows down production runs.</p>
+    </div>
+    <div class="trades">
+      <div class="trade">
+        <p class="mono lbl"><span data-l="fr">Bois massif · lattes · sur mesure</span><span data-l="en">Solid wood · strips · custom</span></p>
+        <h3><span data-l="fr">Menuiserie traditionnelle</span><span data-l="en">Traditional woodworking</span></h3>
+        <div class="chips">
+          <span><span data-l="fr">Couper</span><span data-l="en">Cut</span></span><i>→</i>
+          <span><span data-l="fr">Sabler</span><span data-l="en">Sand</span></span><i>→</i>
+          <span><span data-l="fr">Usiner</span><span data-l="en">Machine</span></span><i>→</i>
+          <span><span data-l="fr">Sabler</span><span data-l="en">Sand</span></span>
+        </div>
+        <p data-l="fr">Chaque pièce passe plusieurs fois sur les mêmes machines. Le savoir-faire repose sur les mains de l’artisan, et le temps varie d’une pièce à l’autre.</p>
+        <p data-l="en">Each part goes through the same machines several times. The know-how is in the worker's hands, and the time changes from one part to the next.</p>
+        <p class="fit"><span data-l="fr">Idéal pour les pièces uniques, la finition et les ajustements.</span><span data-l="en">Great for one-off pieces, finishing and adjustments.</span></p>
+      </div>
+      <div class="trade modern">
+        <p class="mono lbl"><span data-l="fr">Panneaux · série · répétable</span><span data-l="en">Panels · runs · always the same</span></p>
+        <h3><span data-l="fr">Ébénisterie moderne</span><span data-l="en">Modern cabinetmaking</span></h3>
+        <div class="chips">
+          <span>CNC</span><i>→</i>
+          <span><span data-l="fr">Chant</span><span data-l="en">Edge</span></span><i>→</i>
+          <span>Blum</span><i>→</i>
+          <span><span data-l="fr">Assemblage</span><span data-l="en">Assembly</span></span><i>→</i>
+          <span><span data-l="fr">Emballage</span><span data-l="en">Packing</span></span>
+        </div>
+        <p data-l="fr">Chaque pièce passe une seule fois à chaque poste. Le savoir-faire est intégré au programme de la CNC et à la fiche de montage, ce qui rend le temps prévisible.</p>
+        <p data-l="en">Each part goes through each station only once. The know-how is in the CNC program and the assembly sheet, so the time becomes predictable.</p>
+        <p class="fit"><span data-l="fr">Idéal pour les caissons, les armoires de cuisine, les garde-robes et le mobilier en série.</span><span data-l="en">Great for cabinets, kitchen cupboards, closets and furniture runs.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="feuille-de-route">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <p class="mono kicker"><span data-l="fr">04 · Le plan de match</span><span data-l="en">04 · The game plan</span></p>
+        <h2><span data-l="fr">Mesurer avant de déplacer quoi que ce soit</span><span data-l="en">Measure before moving anything</span></h2>
+      </div>
+      <p data-l="fr">Les premiers gains se font sans déplacer une seule machine. Le réaménagement vient ensuite, une fois les données en main et le plan validé avec votre équipe.</p>
+      <p data-l="en">The first gains come without moving a single machine. The new layout comes after, once we have the numbers and the plan is approved with your team.</p>
+    </div>
+    <ol class="road">
+      <li><span class="ph num">1</span><span class="when mono num"><span data-l="fr">Semaines&nbsp;1 à 2</span><span data-l="en">Weeks 1 – 2</span></span>
+        <h3><span data-l="fr">Diagnostic</span><span data-l="en">Diagnosis</span></h3>
+        <p data-l="fr">Relevé de l’atelier, chronométrage des postes et cartographie du parcours des pièces.</p>
+        <p data-l="en">We measure the shop, time each station and map the path of the parts.</p></li>
+      <li><span class="ph num">2</span><span class="when mono num"><span data-l="fr">Semaines&nbsp;3 à 6</span><span data-l="en">Weeks 3 – 6</span></span>
+        <h3><span data-l="fr">Gains rapides</span><span data-l="en">Quick wins</span></h3>
+        <p data-l="fr">Rangement et organisation (5S), marquage au plancher, kits de quincaillerie, étiquetage des pièces.</p>
+        <p data-l="en">Clean-up and organizing (5S), floor markings, hardware kits, labels on every part.</p></li>
+      <li><span class="ph num">3</span><span class="when mono num"><span data-l="fr">Semaines&nbsp;7 à 12</span><span data-l="en">Weeks 7 – 12</span></span>
+        <h3><span data-l="fr">Réaménagement</span><span data-l="en">New layout</span></h3>
+        <p data-l="fr">Ligne entrée → sortie, porte de sortie dédiée, zone d’assemblage regroupée.</p>
+        <p data-l="en">In → out line, separate exit door, one grouped assembly zone.</p></li>
+      <li><span class="ph num">4</span><span class="when mono"><span data-l="fr">En continu</span><span data-l="en">Ongoing</span></span>
+        <h3><span data-l="fr">Suivi</span><span data-l="en">Follow-up</span></h3>
+        <p data-l="fr">Un tableau des indicateurs du jour et une courte rencontre d’équipe de 10&nbsp;minutes chaque matin.</p>
+        <p data-l="en">A board with the day's numbers and a short 10-minute huddle every morning.</p></li>
+    </ol>
+    <p class="road-note"><span data-l="fr">Échéancier à titre indicatif, à ajuster après le diagnostic et selon la charge de travail de l’atelier.</span><span data-l="en">Timeline is a guide only, to adjust after the diagnosis and depending on the shop's workload.</span></p>
+  </div>
+</section>
+
+<section class="close">
+  <div class="wrap">
+    <div>
+      <p class="mono kick"><span data-l="fr">Prochaine étape</span><span data-l="en">Next step</span></p>
+      <h2><span data-l="fr">Nous venons dans votre atelier pour <span>mesurer</span>.</span><span data-l="en">We come to your shop to <span>measure</span>.</span></h2>
+      <p class="body" data-l="fr">Nous suivons une commande réelle, du panneau brut jusqu’au camion. Nous chronométrons chaque poste et vous remettons un premier plan chiffré.</p>
+      <p class="body" data-l="en">We follow a real order, from raw panel to the truck. We time every station and hand you a first plan with real numbers.</p>
+    </div>
+    <dl class="spec">
+      <div><dt>Client</dt><dd>Ébenpro</dd></div>
+      <div><dt><span data-l="fr">Ingénieur</span><span data-l="en">Engineer</span></dt><dd>Pablo Herrera</dd></div>
+      <div><dt><span data-l="fr">Durée</span><span data-l="en">Length</span></dt><dd><span data-l="fr">À déterminer</span><span data-l="en">To be determined</span></dd></div>
+      <div><dt><span data-l="fr">Sur place</span><span data-l="en">On site</span></dt><dd><span data-l="fr">Atelier + bureau</span><span data-l="en">Shop + office</span></dd></div>
+      <div><dt><span data-l="fr">Ce que vous recevez</span><span data-l="en">What you get</span></dt><dd><span data-l="fr">Diagnostic chiffré</span><span data-l="en">Diagnosis with numbers</span></dd></div>
+    </dl>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap mono">
+    <span><span data-l="fr">Avant-projet Ébenpro · Pablo Herrera, ingénieur</span><span data-l="en">Ébenpro pre-project · Pablo Herrera, engineer</span></span>
+    <span class="num"><span data-l="fr">Rév.&nbsp;D · 11/2026</span><span data-l="en">Rev. D · 11/2026</span></span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var store = {
+    get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  };
+
+  var Z = {
+    fr: {
+      z1: { step: "Étape 01 · Zone Z1", title: "Coupe CNC", machine: "Centre d’usinage CNC, avec les racks de panneaux le long du mur", tag: "heart",
+        fr: ["Les panneaux sont entreposés à plusieurs endroits, ce qui allonge la manutention avant la coupe.", "Les pièces sortent de la machine sans étiquette, ce qui complique leur identification.", "Les retailles réutilisables ne sont ni classées ni réemployées."],
+        lv: ["Des racks de panneaux au pied de la CNC, classés par couleur, selon le principe premier entré, premier sorti.", "Une imbrication (nesting) optimisée et une étiquette code-barres sur chaque pièce.", "Un emplacement réservé aux retailles, classées et utilisées en priorité."],
+        kpi: [["Taux de perte", "% du panneau envoyé au rebut"], ["Efficacité de la CNC", "temps de coupe vs temps d’arrêt"]] },
+      z2: { step: "Étape 02 · Zone Z2", title: "Bande de chant", machine: "Bandeuse de chant",
+        fr: ["Changements de rouleau fréquents (couleur, épaisseur) entre deux commandes.", "Retour des pièces à l’opérateur fait à la main.", "Nombreuses retouches manuelles\u00a0: affleurage, grattage, nettoyage de la colle."],
+        lv: ["Regrouper les pièces en lots par couleur de bande.", "Un chariot de retour pour ramener les pièces directement à l’opérateur.", "Valider la première pièce, avec une fiche de réglage par type de bande."],
+        kpi: [["Retouches", "% des pièces à reprendre"], ["Production", "pieds linéaires de bande / heure"]] },
+      z3: { step: "Étape 03 · Zone Z3", title: "Quincaillerie", machine: "Perçage et pose Blum\u00a0: charnières et coulisses",
+        fr: ["Les perçages de charnières et de coulisses se font une pièce à la fois.", "La quincaillerie est recherchée au moment du montage.", "Risque d’erreur de côté ou de cote sur les portes et les façades."],
+        lv: ["Perçages de 35\u00a0mm et système 32\u00a0mm programmés directement dans la CNC.", "Un kit de quincaillerie préparé d’avance pour chaque commande, dans un bac identifié.", "Des gabarits anti-erreur pour les perçages restants."],
+        kpi: [["Erreurs de perçage", "pièces à refaire / semaine"], ["Préparation du kit", "minutes par commande"]] },
+      z4: { step: "Étape 04 · Zone Z4", title: "Assemblage", machine: "Montage des caissons et des meubles, avec la scie à onglet et le banc de scie à proximité", tag: "star",
+        fr: ["Les postes de montage sont dispersés de chaque côté du mur.", "Allers-retours fréquents vers le banc de scie et la scie à onglet.", "Les pièces s’accumulent en attente devant les établis."],
+        lv: ["Une seule zone d’assemblage\u00a0: établis à la bonne hauteur, chaque outil à sa place (5S).", "Une presse à caissons et une fiche de montage standard par type de meuble.", "Un chariot par commande\u00a0: les pièces et le kit arrivent ensemble."],
+        kpi: [["Temps de montage", "minutes par caisson"], ["Travail en attente", "nombre de commandes en attente"]] },
+      z5: { step: "Étape 05 · Zone Z5", title: "Emballage + qualité", machine: "Vérification finale, protection, emballage et étiquetage",
+        fr: ["L’emballage se trouve au centre de l’atelier, loin de la sortie.", "Aucune vérification formelle avant l’emballage.", "Les boîtes ne sont pas toujours clairement associées à leur commande."],
+        lv: ["Une courte liste de vérification par type de meuble avant l’emballage.", "Un poste d’emballage avec tout le matériel à portée de main.", "Une étiquette par boîte et une liste de colisage pour chaque commande."],
+        kpi: [["Meubles repris", "% repris avant le départ"], ["Temps d’emballage", "minutes par meuble"]] },
+      z6: { step: "Sortie · OUT", title: "Livraison", machine: "Zone «\u00a0prêt à charger\u00a0» et porte de sortie dédiée",
+        fr: ["Les meubles finis sortent par la porte où entrent les panneaux.", "Le chargement se prépare à la dernière minute.", "Des meubles s’abîment pendant la manutention et le transport."],
+        lv: ["Une porte de sortie dédiée, sans croisement avec les panneaux bruts.", "Chargement par tournée\u00a0: la dernière livraison entre en premier dans le camion.", "Chaque boîte vérifiée sur la liste avant le départ du camion."],
+        kpi: [["Bris au transport", "retours de service / mois"], ["Livraisons complètes", "% des commandes livrées sans oubli"]] }
+    },
+    en: {
+      z1: { step: "Stage 01 · Zone Z1", title: "CNC cutting", machine: "The CNC, with panel racks along the wall", tag: "heart",
+        fr: ["Panels are stored in several places, so they travel a long way before reaching the CNC.", "Parts come off the machine with no label, so people have to guess what they are.", "Reusable offcuts aren't sorted, so they get lost."],
+        lv: ["Panel racks right at the CNC, sorted by colour: first in, first out.", "Better nesting and a barcode label on every part.", "One spot just for offcuts, sorted and used first."],
+        kpi: [["Waste rate", "% of the panel that ends up as scrap"], ["CNC efficiency", "cutting time vs stopped time"]] },
+      z2: { step: "Stage 02 · Zone Z2", title: "Edge banding", machine: "Edgebander",
+        fr: ["The edge roll (colour, thickness) changes often between two jobs.", "Parts are carried back to the operator by hand.", "Lots of hand touch-ups: trimming, scraping, removing glue."],
+        lv: ["Run parts in batches, grouped by edge colour.", "A return cart so parts come straight back to the operator.", "Check the first part, with a settings sheet for each type of edge."],
+        kpi: [["Touch-ups", "% of parts to redo"], ["Output", "linear feet of edge / hour"]] },
+      z3: { step: "Stage 03 · Zone Z3", title: "Hardware", machine: "Blum drilling and install: hinges, slides",
+        fr: ["Hinge and slide holes are drilled one part at a time.", "People look for hardware while they're assembling.", "It's easy to drill the wrong side or the wrong size on a door."],
+        lv: ["35 mm holes and the 32 mm system programmed straight into the CNC.", "A hardware kit prepared ahead for each order, in a labelled bin.", "Mistake-proof jigs for the remaining holes."],
+        kpi: [["Drilling errors", "parts redone / week"], ["Kit prep", "minutes per order"]] },
+      z4: { step: "Stage 04 · Zone Z4", title: "Assembly", machine: "Cabinet and furniture assembly, with the miter saw and table saw close at hand", tag: "star",
+        fr: ["Assembly stations are spread out on both sides of the wall.", "People keep walking back and forth to the table saw and miter saw.", "Parts pile up waiting in front of the benches."],
+        lv: ["One assembly zone: benches at the right height, every tool in its place (5S).", "A cabinet clamp and a standard assembly sheet for each type of furniture.", "One cart per order: the parts and the kit arrive together."],
+        kpi: [["Assembly time", "minutes per cabinet"], ["Work waiting", "orders on hold"]] },
+      z5: { step: "Stage 05 · Zone Z5", title: "Packing + QC", machine: "Final check, protection, boxes and labels",
+        fr: ["Packing sits in the middle of the shop, far from the exit.", "No clear check before a piece is packed.", "Boxes aren't always clearly tied to their order."],
+        lv: ["A short checklist for each type of furniture before packing.", "A packing station with all supplies at hand.", "One label per box and a packing list for every order."],
+        kpi: [["Furniture reworked", "% reworked before leaving"], ["Packing time", "minutes per piece"]] },
+      z6: { step: "Exit · OUT", title: "Shipping", machine: "A ready-to-load area and a dedicated exit door",
+        fr: ["Finished furniture leaves through the same door the panels come in.", "Loading is prepared at the last minute.", "Furniture gets damaged during handling and transport."],
+        lv: ["A separate exit door: no more crossing paths with raw panels.", "Load by route: the last delivery goes into the truck first.", "Every box checked off the list before the truck leaves."],
+        kpi: [["Shipping damage", "service returns / month"], ["Complete deliveries", "% of orders delivered with nothing missing"]] }
+    }
+  };
+  var tagHtml = {
+    fr: { heart: '<span class="tag heart">Le cœur de l’atelier</span>', star: '<span class="tag star">Priorité nº\u00a01</span>' },
+    en: { heart: '<span class="tag heart">The heart of the shop</span>', star: '<span class="tag star">Priority #1</span>' }
+  };
+  var order = ["z1", "z2", "z3", "z4", "z5", "z6"];
+  var plan = document.getElementById("plan-b");
+  var tabs = Array.prototype.slice.call(document.querySelectorAll(".ztabs button"));
+  var $ = function (id) { return document.getElementById(id); };
+  var lang = "fr", current = "z1";
+  function li(a) { return a.map(function (t) { return "<li>" + t + "</li>"; }).join(""); }
+
+  function show(z, focus) {
+    current = z;
+    var d = Z[lang][z], i = order.indexOf(z);
+    plan.setAttribute("data-active", z);
+    tabs.forEach(function (t) {
+      var on = t.dataset.z === z;
+      t.setAttribute("aria-selected", on ? "true" : "false");
+      t.tabIndex = on ? 0 : -1;
+      if (on && focus) t.focus();
+    });
+    $("detail").setAttribute("aria-labelledby", "t-" + z);
+    $("d-step").textContent = d.step;
+    $("d-title").textContent = d.title;
+    $("d-machine").textContent = d.machine;
+    $("d-tag").innerHTML = d.tag ? tagHtml[lang][d.tag] : "";
+    $("d-fr").innerHTML = li(d.fr);
+    $("d-lv").innerHTML = li(d.lv);
+    $("d-kpi").innerHTML = d.kpi.map(function (k) { return "<strong>" + k[0] + "</strong><span>" + k[1] + "</span>"; }).join("");
+    $("d-prev").disabled = i === 0;
+    $("d-next").disabled = i === order.length - 1;
+  }
+
+  tabs.forEach(function (t, i) {
+    t.addEventListener("click", function () { show(t.dataset.z); });
+    t.addEventListener("keydown", function (e) {
+      var n = null;
+      if (e.key === "ArrowRight") n = (i + 1) % order.length;
+      if (e.key === "ArrowLeft") n = (i - 1 + order.length) % order.length;
+      if (n !== null) { e.preventDefault(); show(order[n], true); }
+    });
+  });
+  $("d-prev").addEventListener("click", function () { var i = order.indexOf(current); if (i > 0) show(order[i - 1]); });
+  $("d-next").addEventListener("click", function () { var i = order.indexOf(current); if (i < order.length - 1) show(order[i + 1]); });
+  document.querySelectorAll("[data-go]").forEach(function (a) {
+    a.addEventListener("click", function () { show(a.getAttribute("data-go")); });
+  });
+
+  /* language */
+  function setLang(l, save) {
+    lang = l === "en" ? "en" : "fr";
+    root.setAttribute("data-lang", lang);
+    root.setAttribute("lang", lang === "en" ? "en" : "fr-CA");
+    document.querySelectorAll("[data-set-lang]").forEach(function (b) {
+      b.setAttribute("aria-pressed", b.getAttribute("data-set-lang") === lang ? "true" : "false");
+    });
+    show(current);
+    if (save) store.set("atelier-lang", lang);
+  }
+  document.querySelectorAll("[data-set-lang]").forEach(function (b) {
+    b.addEventListener("click", function () { setLang(b.getAttribute("data-set-lang"), true); });
+  });
+
+  /* theme */
+  var mq = window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
+  function effectiveTheme() {
+    var t = root.getAttribute("data-theme");
+    if (t === "dark" || t === "light") return t;
+    return mq && mq.matches ? "dark" : "light";
+  }
+  function syncTheme() {
+    var t = effectiveTheme();
+    document.querySelectorAll("[data-set-theme]").forEach(function (b) {
+      b.setAttribute("aria-pressed", b.getAttribute("data-set-theme") === t ? "true" : "false");
+    });
+  }
+  document.querySelectorAll("[data-set-theme]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var t = b.getAttribute("data-set-theme");
+      root.setAttribute("data-theme", t);
+      store.set("atelier-theme", t);
+      syncTheme();
+    });
+  });
+  if (mq && mq.addEventListener) mq.addEventListener("change", syncTheme);
+  new MutationObserver(syncTheme).observe(root, { attributes: true, attributeFilter: ["data-theme"] });
+
+  var savedTheme = store.get("atelier-theme");
+  if (savedTheme === "dark" || savedTheme === "light") root.setAttribute("data-theme", savedTheme);
+  syncTheme();
+  setLang(store.get("atelier-lang") || "fr", false);
+})();
+</script>
+</body>
+</html>

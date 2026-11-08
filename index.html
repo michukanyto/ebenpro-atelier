@@ -274,6 +274,110 @@ section.block + section.block { border-top: 1px solid var(--rule); }
 footer { padding-block: 24px; color: var(--muted); }
 footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 24px; }
 
+/* ---------- Scenarios ---------- */
+.sc-cards { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 14px; }
+.sc-card {
+  appearance: none; font: inherit; color: var(--ink); text-align: left; cursor: pointer; min-width: 0;
+  background: var(--surface); border: 1px solid var(--rule); border-top: 4px solid var(--rule);
+  padding: 14px 16px 16px; display: grid; gap: 4px; align-content: start; transition: border-color .15s ease, transform .15s ease;
+}
+.sc-card:hover { border-top-color: var(--muted); transform: translateY(-2px); }
+.sc-card:focus-visible { outline: 2px solid var(--plan); outline-offset: 2px; }
+.sc-card[aria-selected="true"] { border-color: var(--birch); border-top-color: var(--birch); background: var(--birch-soft); }
+.sc-letter svg { width: 38px; height: 38px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linejoin: round; }
+.sc-letter { font-family: var(--f-display); font-weight: 900; font-size: 44px; line-height: .9; color: var(--muted); }
+.sc-card[aria-selected="true"] .sc-letter { color: var(--birch-ink); }
+.sc-name { font-weight: 800; font-size: 17px; line-height: 1.2; }
+.sc-sub { color: var(--muted); font-size: 13.5px; line-height: 1.35; }
+.sc-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; align-items: center; }
+.sc-pill { font-family: var(--f-mono); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; padding: 3px 8px; border-radius: 99px; background: var(--bg); border: 1px solid var(--rule); }
+.sc-dist { font-family: var(--f-mono); font-size: 11.5px; color: var(--critical); }
+.sc-box { overflow: hidden; }
+.sc-bar { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; padding: 12px 16px; border-bottom: 1px solid var(--rule); }
+.sc-seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 99px; padding: 3px; gap: 2px; background: var(--bg); }
+.sc-seg button { appearance: none; border: 0; background: transparent; color: var(--muted); cursor: pointer; font: 700 13px var(--f-body); padding: 7px 14px; border-radius: 99px; display: inline-flex; align-items: center; gap: 6px; }
+.sc-seg button svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linejoin: round; }
+.sc-seg button[aria-pressed="true"] { background: var(--ink); color: var(--surface); }
+.sc-seg button:focus-visible, .sc-tog:focus-visible, .sc-btn:focus-visible, .sc-chip:focus-visible { outline: 2px solid var(--plan); outline-offset: 2px; }
+.sc-tog { appearance: none; border: 1px solid var(--rule); background: var(--surface); color: var(--muted); font: 600 13px var(--f-body); padding: 6px 12px; border-radius: 99px; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; }
+.sc-tog::before { content: ""; width: 14px; height: 14px; border-radius: 4px; border: 1.5px solid currentColor; }
+.sc-tog[aria-pressed="true"] { color: var(--ink); border-color: var(--ink); }
+.sc-tog[aria-pressed="true"]::before { background: var(--birch); border-color: var(--birch); box-shadow: inset 0 0 0 2px var(--surface); }
+.sc-btn { appearance: none; border: 1px solid var(--rule); background: var(--surface); color: var(--ink); font: 600 13px var(--f-body); padding: 6px 12px; cursor: pointer; border-radius: 99px; }
+.sc-btn:hover, .sc-tog:hover { border-color: var(--ink); }
+.sc-hint { margin-left: auto; color: var(--muted); font-size: 13px; }
+.sc-stage { position: relative; background: var(--surface); }
+.sc-plan { overflow-x: auto; padding: 18px 16px 8px; }
+.sc-plan svg { display: block; width: 100%; min-width: 880px; height: auto; touch-action: pan-x pan-y; }
+.sc-3d { position: relative; height: clamp(360px, 52vw, 560px); background: radial-gradient(ellipse at 50% 30%, var(--surface), var(--bg)); }
+.sc-3d canvas { display: block; width: 100%; height: 100%; cursor: grab; touch-action: none; }
+.sc-3d canvas:active { cursor: grabbing; }
+.sc-3d-msg { position: absolute; inset: 0; display: grid; place-items: center; color: var(--muted); font-size: 14px; text-align: center; padding: 24px; }
+.sc-3d-tools { position: absolute; right: 12px; bottom: 12px; display: flex; gap: 6px; }
+.sc-tip { position: absolute; z-index: 3; pointer-events: none; max-width: 260px; background: var(--ink); color: var(--surface); padding: 9px 12px; border-radius: 6px; font-size: 13px; line-height: 1.35; box-shadow: 0 8px 24px rgb(0 0 0 / .18); }
+.sc-tip strong { display: block; font-size: 14px; }
+.sc-tip span { display: block; font-family: var(--f-mono); font-size: 11.5px; opacity: .8; margin-top: 2px; }
+.sc-legend { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 12px 16px; border-top: 1px solid var(--rule); }
+.sc-legend-t { color: var(--muted); margin-right: 4px; }
+.sc-chip { appearance: none; font: 600 13px var(--f-body); color: var(--ink); cursor: pointer; display: inline-flex; align-items: center; gap: 7px; padding: 5px 11px; border-radius: 99px; border: 1px solid var(--rule); background: var(--surface); }
+.sc-chip i { width: 12px; height: 12px; border-radius: 3px; background: var(--zf); border: 1.5px solid var(--zs); }
+.sc-chip:hover { border-color: var(--zs); }
+.sc-chip[aria-pressed="true"] { border-color: var(--zs); background: var(--zf); }
+.sc-key { display: inline-flex; align-items: center; gap: 8px; margin-left: auto; color: var(--muted); font-size: 13px; }
+.sc-key-flow { width: 28px; height: 0; border-top: 3px dashed var(--critical); }
+.z-mod { --zs: var(--plan); --zf: var(--plan-soft); }
+.z-tra { --zs: var(--birch); --zf: var(--birch-soft); }
+.z-ass { --zs: var(--green); --zf: var(--green-soft); }
+.z-mat, .z-exp { --zs: var(--muted); --zf: var(--bg); }
+.z-fix { --zs: var(--muted); --zf: var(--rule); }
+.sc-details { border-top: 1px solid var(--rule); }
+.sc-detail { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, .9fr); }
+.sc-detail > div { padding: 24px; min-width: 0; }
+.sc-detail > div + div { border-left: 1px solid var(--rule); }
+.sc-ideal { font-size: 15px; line-height: 1.45; margin-bottom: 14px; }
+/* plan drawing */
+.sv-floor { fill: var(--surface); }
+.sv-grid { stroke: var(--rule); stroke-width: 1; opacity: .55; }
+.sv-wall { fill: none; stroke: var(--ink); stroke-width: 5; }
+.sv-part { fill: var(--ink); }
+.sv-aisle { fill: color-mix(in srgb, var(--birch) 9%, transparent); stroke: var(--birch); stroke-width: 1.2; stroke-dasharray: 10 8; }
+.sv-door { stroke-width: 12; }
+.sv-in { stroke: var(--green); } .sv-out { stroke: var(--critical); }
+.sv-doort { font: 700 17px var(--f-mono); letter-spacing: .06em; }
+.sv-in-t { fill: var(--green); } .sv-out-t { fill: var(--critical); }
+.sv-room { fill: url(#sv-hatch); stroke: var(--muted); stroke-width: 1.5; }
+.sv-hatch-l { stroke: var(--rule); stroke-width: 3; }
+.m { transition: opacity .2s ease; cursor: pointer; }
+.m .b { fill: var(--zf); stroke: var(--zs); stroke-width: 1.6; }
+.m .b.sv-room { fill: url(#sv-hatch); }
+.m.is-area .b { fill: color-mix(in srgb, var(--zs) 6%, transparent); stroke-dasharray: 9 7; }
+.m .s { fill: none; stroke: var(--zs); stroke-width: 1.4; opacity: .7; stroke-linecap: round; }
+.m .sf { fill: var(--zs); opacity: .55; }
+.m .sw { fill: var(--surface); stroke: var(--zs); stroke-width: 1.2; opacity: .9; }
+.m:hover .b, .m.is-hot .b { stroke-width: 3.5; }
+.m:hover, .m.is-hot { filter: drop-shadow(0 3px 5px rgb(0 0 0 / .18)); }
+.sv-l { fill: var(--ink); font-family: var(--f-body); font-weight: 700; text-anchor: middle; paint-order: stroke; stroke: var(--zf); stroke-width: 4px; stroke-linejoin: round; pointer-events: none; }
+.no-names .sv-l { display: none; }
+svg[data-focus] .m { opacity: .18; }
+svg[data-focus="mod"] .m.z-mod, svg[data-focus="tra"] .m.z-tra, svg[data-focus="ass"] .m.z-ass,
+svg[data-focus="mat"] .m.z-mat, svg[data-focus="exp"] .m.z-exp { opacity: 1; }
+.sv-flow { fill: none; stroke: var(--critical); stroke-width: 5; stroke-linejoin: round; stroke-linecap: round; stroke-dasharray: 16 10; animation: march 1.4s linear infinite; }
+.sv-flow-dot { fill: var(--critical); }
+.sv-arrow { fill: var(--critical); }
+.no-flow .sv-flow, .no-flow .sv-flow-dot { display: none; }
+.sv-scale { stroke: var(--ink); stroke-width: 3; }
+.sv-small { fill: var(--muted); font: 500 15px var(--f-mono); }
+@media (max-width: 960px) { .sc-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 860px) {
+  .sc-detail { grid-template-columns: 1fr; }
+  .sc-detail > div + div { border-left: 0; border-top: 1px solid var(--rule); }
+  .sc-hint { margin-left: 0; width: 100%; }
+  .sc-key { margin-left: 0; }
+}
+@media (max-width: 420px) { .sc-letter { font-size: 34px; } .sc-name { font-size: 15px; } .sc-sub { display: none; } }
+@media (prefers-reduced-motion: reduce) { .sv-flow { animation: none; } .sc-card, .m { transition: none; } }
+/* scenarios-css:end */
+
 @media (prefers-reduced-motion: reduce) {
   .p-flow-good { animation: none; }
   .zbg, .zone, .stages a, .ztabs button { transition: none; }
@@ -611,11 +715,54 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   </div>
 </section>
 
+<!-- scenarios:start -->
+<section class="block" id="scenarios">
+  <div class="wrap">
+    <div class="head">
+      <div>
+        <p class="mono kicker"><span data-l="fr">04 · Trois scénarios</span><span data-l="en">04 · Three scenarios</span></p>
+        <h2><span data-l="fr">Trois façons de réaménager</span><span data-l="en">Three ways to rearrange</span></h2>
+      </div>
+      <p data-l="fr">Chaque scénario utilise les dimensions réelles de vos machines. Choisissez un scénario, survolez une machine pour voir ses dimensions, puis passez en 3D pour faire le tour de l’atelier.</p>
+      <p data-l="en">Each scenario uses the real size of your machines. Pick a scenario, hover over a machine to see its size, then switch to 3D to walk around the shop.</p>
+    </div>
+    <div class="sc-cards" role="tablist" aria-label="Scénarios"><button class="sc-card" role="tab" id="sc-t-actuel" data-sc="actuel" aria-selected="true" aria-controls="sc-view"><span class="sc-letter"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="1"/><path d="M3 11h7v9M14 4v5h7M14 15h3"/></svg></span><span class="sc-name"><span data-l="fr">Aujourd’hui</span><span data-l="en">Today</span></span><span class="sc-sub"><span data-l="fr">Relevé AutoCAD</span><span data-l="en">AutoCAD survey</span></span><span class="sc-meta"><span class="sc-pill"><span data-l="fr">Point de départ</span><span data-l="en">Starting point</span></span><span class="sc-dist num" data-dist="actuel"></span></span></button><button class="sc-card" role="tab" id="sc-t-A" data-sc="A" aria-selected="false" aria-controls="sc-view" tabindex="-1"><span class="sc-letter">A</span><span class="sc-name"><span data-l="fr">Ligne en série</span><span data-l="en">Straight line</span></span><span class="sc-sub"><span data-l="fr">Tout suit une seule ligne</span><span data-l="en">Everything on one line</span></span><span class="sc-meta"><span class="sc-pill"><span data-l="fr">Coût élevé</span><span data-l="en">High cost</span></span><span class="sc-dist num" data-dist="A"></span></span></button><button class="sc-card" role="tab" id="sc-t-B" data-sc="B" aria-selected="false" aria-controls="sc-view" tabindex="-1"><span class="sc-letter">B</span><span class="sc-name"><span data-l="fr">Deux voies</span><span data-l="en">Two lanes</span></span><span class="sc-sub"><span data-l="fr">Moderne et traditionnel côte à côte</span><span data-l="en">Modern and traditional side by side</span></span><span class="sc-meta"><span class="sc-pill"><span data-l="fr">Coût moyen à élevé</span><span data-l="en">Medium to high cost</span></span><span class="sc-dist num" data-dist="B"></span></span></button><button class="sc-card" role="tab" id="sc-t-C" data-sc="C" aria-selected="false" aria-controls="sc-view" tabindex="-1"><span class="sc-letter">C</span><span class="sc-name"><span data-l="fr">Machines lourdes en place</span><span data-l="en">Heavy machines stay</span></span><span class="sc-sub"><span data-l="fr">On déplace seulement le léger</span><span data-l="en">Only the light machines move</span></span><span class="sc-meta"><span class="sc-pill"><span data-l="fr">Coût faible</span><span data-l="en">Low cost</span></span><span class="sc-dist num" data-dist="C"></span></span></button></div>
+    <div class="explorer sc-box" id="sc-view" role="tabpanel">
+      <div class="sc-bar">
+        <div class="sc-seg" role="group" aria-label="Vue">
+          <button type="button" data-view="2d" aria-pressed="true"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="1"/><path d="M3 12h8v7M11 5v4"/></svg><span data-l="fr">Plan 2D</span><span data-l="en">2D plan</span></button>
+          <button type="button" data-view="3d" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l8 4.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12L4 7.5"/></svg><span data-l="fr">Vue 3D</span><span data-l="en">3D view</span></button>
+        </div>
+        <button type="button" class="sc-tog" id="sc-flow" aria-pressed="true"><span data-l="fr">Parcours</span><span data-l="en">Path</span></button>
+        <button type="button" class="sc-tog" id="sc-names" aria-pressed="true"><span data-l="fr">Noms</span><span data-l="en">Names</span></button>
+        <p class="sc-hint">
+          <span data-v="2d"><span data-l="fr">Survolez ou touchez une machine pour voir ses dimensions.</span><span data-l="en">Hover over or tap a machine to see its size.</span></span>
+          <span data-v="3d" hidden><span data-l="fr">Glissez pour tourner · molette ou pincement pour zoomer.</span><span data-l="en">Drag to rotate · scroll or pinch to zoom.</span></span>
+        </p>
+      </div>
+      <div class="sc-stage" id="sc-stage">
+        <div class="sc-plan" id="sc-2d"></div>
+        <div class="sc-3d" id="sc-3d" hidden>
+          <div class="sc-3d-tools">
+            <button type="button" class="sc-btn" id="sc-top"><span data-l="fr">Vue du dessus</span><span data-l="en">Top view</span></button>
+            <button type="button" class="sc-btn" id="sc-reset"><span data-l="fr">Recentrer</span><span data-l="en">Reset view</span></button>
+          </div>
+        </div>
+        <div class="sc-tip" id="sc-tip" hidden></div>
+      </div>
+      <div class="sc-legend"><span class="mono sc-legend-t"><span data-l="fr">Isoler une zone</span><span data-l="en">Focus on a zone</span></span><button type="button" class="sc-chip z-mod" data-zone="mod" aria-pressed="false"><i aria-hidden="true"></i><span data-l="fr">Moderne</span><span data-l="en">Modern</span></button><button type="button" class="sc-chip z-tra" data-zone="tra" aria-pressed="false"><i aria-hidden="true"></i><span data-l="fr">Traditionnel</span><span data-l="en">Traditional</span></button><button type="button" class="sc-chip z-ass" data-zone="ass" aria-pressed="false"><i aria-hidden="true"></i><span data-l="fr">Assemblage</span><span data-l="en">Assembly</span></button><button type="button" class="sc-chip z-mat" data-zone="mat" aria-pressed="false"><i aria-hidden="true"></i><span data-l="fr">Matières</span><span data-l="en">Materials</span></button><button type="button" class="sc-chip z-exp" data-zone="exp" aria-pressed="false"><i aria-hidden="true"></i><span data-l="fr">Emballage</span><span data-l="en">Packing</span></button><span class="sc-key"><i class="sc-key-flow" aria-hidden="true"></i><span data-l="fr">Parcours d’un caisson</span><span data-l="en">Path of one cabinet</span></span></div>
+      <div class="sc-details" id="sc-d-actuel"><div class="sc-detail" data-l="fr"><div class="d-col lv"><h4 class="mono">Ce qu’on observe</h4><ul><li>Le camion de livraison est stationné à l’intérieur, à l’endroit idéal pour recevoir les panneaux.</li><li>Les machines modernes sont séparées par 34 pi de machines traditionnelles et par la cloison.</li><li>Les panneaux sont empilés au sol, sans identification.</li><li>Aucune zone d’emballage : les meubles finis attendent dans l’atelier.</li></ul></div><div class="d-col fr"><h4 class="mono">Ce qui ralentit</h4><ul><li>L’ouverture de 8 pi 7 po dans la cloison oblige les pièces à faire un détour.</li><li>Les postes d’assemblage sont dispersés de chaque côté du mur.</li></ul></div><div class="d-kpi"><h4 class="mono">À retenir</h4><p class="sc-ideal">Point de départ pour comparer les trois scénarios.</p><strong>148 pi 5 po × 35 pi 10 po</strong><span>Bâtiment</span><strong>à 56 pi 9 po de l’entrée</strong><span>Cloison</span></div></div><div class="sc-detail" data-l="en"><div class="d-col lv"><h4 class="mono">What we see</h4><ul><li>The delivery truck is parked inside, right where panels should come in.</li><li>The modern machines are split up by 34 ft of traditional machines and the partition.</li><li>Panels are stacked on the floor with no labels.</li><li>No packing area: finished furniture waits in the shop.</li></ul></div><div class="d-col fr"><h4 class="mono">What slows things down</h4><ul><li>The 8 ft 7 in opening in the partition forces parts to take a detour.</li><li>Assembly stations are spread out on both sides of the wall.</li></ul></div><div class="d-kpi"><h4 class="mono">Key point</h4><p class="sc-ideal">The starting point for comparing the three scenarios.</p><strong>148 ft 5 in × 35 ft 10 in</strong><span>Building</span><strong>56 ft 9 in from the entrance</strong><span>Partition</span></div></div></div><div class="sc-details" id="sc-d-A" hidden><div class="sc-detail" data-l="fr"><div class="d-col lv"><h4 class="mono">Avantages</h4><ul><li>Le parcours le plus clair : une pièce ne revient jamais en arrière.</li><li>Une allée de 10 pi 10 po sur toute la longueur, de l’entrée à la sortie.</li><li>Le support à panneaux est juste à côté de la CNC.</li></ul></div><div class="d-col fr"><h4 class="mono">Limites</h4><ul><li>Toutes les machines bougent, y compris la presse et la CNC, avec la ventilation.</li><li>Il faut agrandir l’ouverture de la cloison.</li><li>Les caissons en mélamine traversent la zone traditionnelle pour se rendre à l’assemblage.</li></ul></div><div class="d-kpi"><h4 class="mono">Idéal quand</h4><p class="sc-ideal">La majorité du travail est en caissons de mélamine, et l’entreprise peut s’arrêter une ou deux semaines.</p><strong>Élevé</strong><span>Coût</span><strong>1 à 2 semaines</strong><span>Arrêt</span><strong>Toutes</strong><span>Machines déplacées</span></div></div><div class="sc-detail" data-l="en"><div class="d-col lv"><h4 class="mono">Pros</h4><ul><li>The clearest path: a part never goes backwards.</li><li>A 10 ft 10 in aisle runs the full length, from entrance to exit.</li><li>The panel rack sits right next to the CNC.</li></ul></div><div class="d-col fr"><h4 class="mono">Cons</h4><ul><li>Every machine moves, including the press and the CNC, with the dust ducts.</li><li>The partition opening has to be widened.</li><li>Melamine cabinets cross the traditional zone to reach assembly.</li></ul></div><div class="d-kpi"><h4 class="mono">Best when</h4><p class="sc-ideal">Most of the work is melamine casework, and the shop can stop for one or two weeks.</p><strong>High</strong><span>Cost</span><strong>1 – 2 weeks</strong><span>Downtime</span><strong>All</strong><span>Machines moved</span></div></div></div><div class="sc-details" id="sc-d-B" hidden><div class="sc-detail" data-l="fr"><div class="d-col lv"><h4 class="mono">Avantages</h4><ul><li>Le moderne et le traditionnel sont complètement séparés : poussière, bruit et savoir-faire.</li><li>Les deux voies produisent en même temps et se rejoignent à l’assemblage.</li><li>Une allée centrale pour le chariot élévateur sur toute la longueur.</li></ul></div><div class="d-col fr"><h4 class="mono">Limites</h4><ul><li>Les conduits de ventilation sont à refaire sur les deux murs.</li><li>Chaque voie fait environ 11 à 14 pi de large : c’est serré pour la presse.</li><li>Il faut aussi agrandir l’ouverture de la cloison.</li></ul></div><div class="d-kpi"><h4 class="mono">Idéal quand</h4><p class="sc-ideal">Le travail est partagé entre les caissons et la menuiserie en bois massif.</p><strong>Moyen à élevé</strong><span>Coût</span><strong>1 à 2 semaines</strong><span>Arrêt</span><strong>Presque toutes</strong><span>Machines déplacées</span></div></div><div class="sc-detail" data-l="en"><div class="d-col lv"><h4 class="mono">Pros</h4><ul><li>Modern and traditional are fully separated: dust, noise and skills.</li><li>Both lanes run at the same time and meet at assembly.</li><li>A central forklift aisle along the whole shop.</li></ul></div><div class="d-col fr"><h4 class="mono">Cons</h4><ul><li>Dust ducts have to be redone on both walls.</li><li>Each lane is about 11 to 14 ft wide: tight for the press.</li><li>The partition opening also has to be widened.</li></ul></div><div class="d-kpi"><h4 class="mono">Best when</h4><p class="sc-ideal">The work is split between casework and solid-wood millwork.</p><strong>Medium to high</strong><span>Cost</span><strong>1 – 2 weeks</strong><span>Downtime</span><strong>Almost all</strong><span>Machines moved</span></div></div></div><div class="sc-details" id="sc-d-C" hidden><div class="sc-detail" data-l="fr"><div class="d-col lv"><h4 class="mono">Avantages</h4><ul><li>La CNC, la bandeuse, la presse, la ponceuse large et la scie à panneaux ne bougent pas.</li><li>Le camion reste dehors et le support à panneaux prend sa place.</li><li>La cabine de peinture laisse la place à une zone d’assemblage regroupée de six établis.</li></ul></div><div class="d-col fr"><h4 class="mono">Limites</h4><ul><li>Il reste quelques détours entre la bandeuse et l’assemblage.</li><li>C’est un compromis, pas l’aménagement idéal.</li></ul></div><div class="d-kpi"><h4 class="mono">Idéal quand</h4><p class="sc-ideal">Comme première phase : des résultats rapides sans arrêter la production, avant de choisir A ou B avec les données.</p><strong>Faible</strong><span>Coût</span><strong>2 ou 3 fins de semaine</strong><span>Arrêt</span><strong>Les plus légères</strong><span>Machines déplacées</span></div></div><div class="sc-detail" data-l="en"><div class="d-col lv"><h4 class="mono">Pros</h4><ul><li>The CNC, edgebander, press, wide sander and panel saw stay where they are.</li><li>The truck stays outside and the panel rack takes its spot.</li><li>The paint booth makes way for one assembly zone with six benches.</li></ul></div><div class="d-col fr"><h4 class="mono">Cons</h4><ul><li>A few detours remain between the edgebander and assembly.</li><li>It's a compromise, not the ideal layout.</li></ul></div><div class="d-kpi"><h4 class="mono">Best when</h4><p class="sc-ideal">As a first phase: quick results without stopping production, before choosing A or B with the data.</p><strong>Low</strong><span>Cost</span><strong>2 or 3 weekends</strong><span>Downtime</span><strong>The lighter ones</strong><span>Machines moved</span></div></div></div>
+    </div>
+    <script type="application/json" id="sc-data">{"W":1781,"H":430,"cafe":[1554,309,227,121],"inDoor":[110,250],"outDoor":[126,275],"names":{"Camion":{"fr":["Camion","Camion de livraison"],"en":["Truck","Delivery truck"]},"Chariot élév.":{"fr":["Chariot","Chariot élévateur"],"en":["Forklift","Forklift"]},"Palettes 4×8":{"fr":["Palettes","Palettes de panneaux 4 × 8"],"en":["Pallets","4 × 8 panel pallets"]},"Étagère":{"fr":["Étagère","Étagère murale"],"en":["Shelving","Wall shelving"]},"CNC Rover B":{"fr":["CNC","CNC Biesse Rover B 4.40"],"en":["CNC","Biesse Rover B 4.40 CNC"]},"Bandeuse":{"fr":["Bandeuse","Bandeuse de chant"],"en":["Edgebander","Edgebander"]},"SCM M3":{"fr":["Refendeuse","Scie à refendre SCM M3"],"en":["Rip saw","SCM M3 rip saw"]},"Profimat":{"fr":["Moulurière","Moulurière Weinig Profimat 22N"],"en":["Moulder","Weinig Profimat 22N moulder"]},"Raboteuse":{"fr":["Raboteuse","Raboteuse Minimax"],"en":["Planer","Minimax planer"]},"Ponc. large":{"fr":["Ponceuse large","Ponceuse à large bande"],"en":["Wide sander","Wide-belt sander"]},"Toupie":{"fr":["Toupie","Toupie"],"en":["Shaper","Shaper"]},"Ponc. bande":{"fr":["Ponceuse","Ponceuse à bande"],"en":["Belt sander","Belt sander"]},"Presse":{"fr":["Presse","Presse à stratifier Italpresse"],"en":["Press","Italpresse laminating press"]},"Ponc. #10?":{"fr":["Ponceuse","Ponceuse (à identifier)"],"en":["Sander","Sander (to identify)"]},"Table":{"fr":["Table","Table de travail"],"en":["Table","Work table"]},"Scie à panneaux":{"fr":["Scie à panneaux","Scie à panneaux à chariot coulissant"],"en":["Panel saw","Sliding panel saw"]},"Établi":{"fr":["Établi","Établi 4 × 8"],"en":["Bench","4 × 8 bench"]},"Table longue":{"fr":["Table longue","Table longue"],"en":["Long table","Long table"]},"Ruban":{"fr":["Scie à ruban","Scie à ruban"],"en":["Band saw","Band saw"]},"Scie #2":{"fr":["Scie à table","Deuxième scie à table"],"en":["Table saw","Second table saw"]},"Blum":{"fr":["Blum","Perceuse Blum (charnières)"],"en":["Blum","Blum boring machine (hinges)"]},"Onglet":{"fr":["Scie à onglet","Poste de scie à onglet"],"en":["Miter saw","Miter saw station"]},"Peinture":{"fr":["Peinture","Cabine de peinture (inutilisée)"],"en":["Paint booth","Paint booth (unused)"]},"Stock":{"fr":["Entreposage","Zone d’entreposage"],"en":["Storage","Storage area"]},"Rack panneaux 4×8 · 3 baies":{"fr":["Support à panneaux","Support à panneaux 4 × 8 · 3 baies"],"en":["Panel rack","4 × 8 panel rack · 3 bays"]},"Pré-montage":{"fr":["Prémontage","Établi de prémontage (quincaillerie)"],"en":["Pre-assembly","Pre-assembly bench (hardware)"]},"Kits projet":{"fr":["Kits par projet","Bacs de quincaillerie par projet"],"en":["Project kits","Hardware bins by project"]},"Quincaillerie":{"fr":["Quincaillerie","Réserve de quincaillerie : vis, charnières, coulisses"],"en":["Hardware","Hardware stock: screws, hinges, slides"]},"Rack bois massif":{"fr":["Support à bois","Support en porte-à-faux pour bois massif"],"en":["Lumber rack","Cantilever lumber rack"]},"Stratifié":{"fr":["Stratifié","Support à stratifié et à placage"],"en":["Laminate","Laminate and veneer rack"]},"Kits":{"fr":["Kits","Stationnement des chariots de kits"],"en":["Kits","Kit cart parking"]},"Emballage":{"fr":["Emballage","Table d’emballage"],"en":["Packing","Packing table"]},"Produits finis":{"fr":["Produits finis","Produits finis, prêts à charger"],"en":["Finished goods","Finished goods, ready to load"]},"Tampon pièces":{"fr":["Zone tampon","Zone tampon des pièces coupées"],"en":["Parts buffer","Cut parts buffer"]}},"sc":{"actuel":{"opening":[74,177],"aisles":[],"flow":[[70,72],[330,100],[330,200],[200,200],[200,252],[300,252],[380,250],[545,165],[690,125],[1215,125],[1271,62],[1345,150],[1030,185],[1030,290],[1094,300],[1500,288],[1770,200]],"items":[{"k":"Camion","t":"truck","z":"fix","x":147,"y":102,"w":165,"h":83,"ht":110,"area":false},{"k":"Chariot élév.","t":"forklift","z":"fix","x":17,"y":177,"w":64,"h":61,"ht":84,"area":false},{"k":"Palettes 4×8","t":"pallet","z":"mat","x":25,"y":22,"w":97,"h":48,"ht":30,"area":false},{"k":"Palettes 4×8","t":"pallet","z":"mat","x":126,"y":22,"w":96,"h":48,"ht":30,"area":false},{"k":"Étagère","t":"shelf","z":"mat","x":0,"y":264,"w":46,"h":161,"ht":84,"area":false},{"k":"CNC Rover B","t":"cnc","z":"mod","x":237,"y":258,"w":48,"h":165,"ht":80,"area":false},{"k":"Bandeuse","t":"edge","z":"mod","x":204,"y":219,"w":155,"h":25,"ht":60,"area":false},{"k":"SCM M3","t":"rip","z":"tra","x":237,"y":8,"w":56,"h":78,"ht":62,"area":false},{"k":"Profimat","t":"moulder","z":"tra","x":357,"y":6,"w":128,"h":39,"ht":66,"area":false},{"k":"Raboteuse","t":"planer","z":"tra","x":469,"y":215,"w":56,"h":24,"ht":45,"area":false},{"k":"Ponc. large","t":"sander","z":"tra","x":550,"y":69,"w":58,"h":73,"ht":72,"area":false},{"k":"Toupie","t":"shaper","z":"tra","x":366,"y":245,"w":26,"h":37,"ht":48,"area":false},{"k":"Ponc. bande","t":"sander","z":"tra","x":350,"y":317,"w":22,"h":96,"ht":45,"area":false},{"k":"Presse","t":"press","z":"tra","x":565,"y":261,"w":60,"h":157,"ht":108,"area":false},{"k":"Ponc. #10?","t":"sander","z":"tra","x":570,"y":181,"w":48,"h":76,"ht":60,"area":false},{"k":"Table","t":"table","z":"fix","x":424,"y":258,"w":62,"h":89,"ht":36,"area":false},{"k":"Table","t":"table","z":"fix","x":417,"y":361,"w":122,"h":47,"ht":36,"area":false},{"k":"Scie à panneaux","t":"panelsaw","z":"mod","x":743,"y":47,"w":226,"h":66,"ht":40,"area":false},{"k":"Table","t":"table","z":"fix","x":718,"y":241,"w":98,"h":112,"ht":36,"area":false},{"k":"Table","t":"table","z":"fix","x":856,"y":243,"w":89,"h":62,"ht":36,"area":false},{"k":"Établi","t":"bench","z":"ass","x":976,"y":277,"w":48,"h":96,"ht":36,"area":false},{"k":"Établi","t":"bench","z":"ass","x":1046,"y":313,"w":96,"h":48,"ht":36,"area":false},{"k":"Établi","t":"bench","z":"ass","x":1172,"y":313,"w":96,"h":48,"ht":36,"area":false},{"k":"Table longue","t":"table","z":"ass","x":1043,"y":202,"w":289,"h":63,"ht":36,"area":false},{"k":"Ruban","t":"band","z":"tra","x":1018,"y":10,"w":27,"h":50,"ht":78,"area":false},{"k":"Scie #2","t":"saw","z":"ass","x":1127,"y":14,"w":77,"h":82,"ht":40,"area":false},{"k":"Blum","t":"blum","z":"ass","x":1234,"y":35,"w":74,"h":23,"ht":60,"area":false},{"k":"Onglet","t":"miter","z":"ass","x":1323,"y":32,"w":85,"h":24,"ht":42,"area":false},{"k":"Onglet","t":"miter","z":"ass","x":1429,"y":22,"w":73,"h":81,"ht":42,"area":false},{"k":"Peinture","t":"room","z":"fix","x":1353,"y":310,"w":124,"h":116,"ht":96,"area":false},{"k":"Stock","t":"area","z":"exp","x":1517,"y":1,"w":264,"h":235,"ht":0,"area":true}]},"A":{"opening":[170,300],"aisles":[[0,170,1551,300]],"flow":[[170,85],[495,85],[495,150],[675,150],[675,235],[1700,235],[1770,200]],"items":[{"k":"Rack panneaux 4×8 · 3 baies","t":"rackPanel","z":"mat","x":6,"y":6,"w":312,"h":54,"ht":96,"area":false},{"k":"Chariot élév.","t":"forklift","z":"mat","x":6,"y":350,"w":64,"h":61,"ht":84,"area":false},{"k":"CNC Rover B","t":"cnc","z":"mod","x":340,"y":10,"w":165,"h":48,"ht":80,"area":false},{"k":"Bandeuse","t":"edge","z":"mod","x":500,"y":100,"w":155,"h":30,"ht":60,"area":false},{"k":"Scie à panneaux","t":"panelsaw","z":"mod","x":90,"y":340,"w":226,"h":66,"ht":40,"area":false},{"k":"Pré-montage","t":"bench","z":"mod","x":400,"y":320,"w":96,"h":48,"ht":36,"area":false},{"k":"Blum","t":"blum","z":"mod","x":520,"y":330,"w":85,"h":23,"ht":60,"area":false},{"k":"Kits projet","t":"shelf","z":"mod","x":400,"y":406,"w":96,"h":24,"ht":84,"area":false},{"k":"Quincaillerie","t":"shelf","z":"mod","x":510,"y":406,"w":96,"h":24,"ht":84,"area":false},{"k":"Rack bois massif","t":"rackLumber","z":"tra","x":700,"y":6,"w":240,"h":48,"ht":96,"area":false},{"k":"SCM M3","t":"rip","z":"tra","x":980,"y":6,"w":56,"h":78,"ht":62,"area":false},{"k":"Raboteuse","t":"planer","z":"tra","x":1060,"y":10,"w":56,"h":24,"ht":45,"area":false},{"k":"Ruban","t":"band","z":"tra","x":1060,"y":60,"w":27,"h":50,"ht":78,"area":false},{"k":"Profimat","t":"moulder","z":"tra","x":720,"y":110,"w":128,"h":39,"ht":66,"area":false},{"k":"Ponc. large","t":"sander","z":"tra","x":900,"y":90,"w":58,"h":73,"ht":72,"area":false},{"k":"Presse","t":"press","z":"tra","x":700,"y":340,"w":157,"h":60,"ht":108,"area":false},{"k":"Stratifié","t":"rackSheet","z":"tra","x":880,"y":350,"w":110,"h":60,"ht":48,"area":false},{"k":"Toupie","t":"shaper","z":"tra","x":1010,"y":330,"w":26,"h":37,"ht":48,"area":false},{"k":"Ponc. bande","t":"sander","z":"tra","x":1060,"y":320,"w":96,"h":22,"ht":45,"area":false},{"k":"Ponc. #10?","t":"sander","z":"tra","x":1080,"y":370,"w":76,"h":48,"ht":60,"area":false},{"k":"Scie #2","t":"saw","z":"ass","x":1180,"y":6,"w":79,"h":82,"ht":40,"area":false},{"k":"Onglet","t":"miter","z":"ass","x":1290,"y":6,"w":85,"h":24,"ht":42,"area":false},{"k":"Onglet","t":"miter","z":"ass","x":1400,"y":6,"w":85,"h":24,"ht":42,"area":false},{"k":"Établi","t":"bench","z":"ass","x":1290,"y":100,"w":96,"h":48,"ht":36,"area":false},{"k":"Établi","t":"bench","z":"ass","x":1410,"y":100,"w":96,"h":48,"ht":36,"area":false},{"k":"Établi","t":"bench","z":"ass","x":1180,"y":330,"w":96,"h":48,"ht":36,"area":false},{"k":"Établi","t":"bench","z":"ass","x":1300,"y":330,"w":96,"h":48,"ht":36,"area":false},{"k":"Établi","t":"bench","z":"ass","x":1420,"y":330,"w":96,"h":48,"ht":36,"area":false},{"k":"Kits","t":"area","z":"ass","x":1180,"y":100,"w":48,"h":48,"ht":0,"area":true},{"k":"Emballage","t":"pack","z":"exp","x":1550,"y":10,"w":96,"h":48,"ht":36,"area":false},{"k":"Emballage","t":"pack","z":"exp","x":1550,"y":70,"w":96,"h":48,"ht":36,"area":false},{"k":"Produits finis","t":"area","z":"exp","x":1670,"y":6,"w":105,"h":110,"ht":0,"area":true}]},"B":{"opening":[170,300],"aisles":[[0,170,1551,300]],"flow":[[170,85],[330,85],[330,140],[670,140],[670,235],[1700,235],[1770,200]],"items":[{"k":"Rack panneaux 4×8 · 3 baies","t":"rackPanel","z":"mat","x":6,"y":6,"w":312,"h":54,"ht":96,"area":false},{"k":"CNC Rover B","t":"cnc","z":"mod","x":340,"y":10,"w":165,"h":48,"ht":80,"area":false},{"k":"Bandeuse","t":"edge","z":"mod","x":520,"y":80,"w":155,"h":30,"ht":60,"area":false},{"k":"Scie à panneaux","t":"panelsaw","z":"mod","x":720,"y":10,"w":226,"h":66,"ht":40,"area":false},{"k":"Blum","t":"blum","z":"mod","x":980,"y":10,"w":85,"h":23,"ht":60,"area":false},{"k":"Pré-montage","t":"bench","z":"mod","x":980,"y":60,"w":96,"h":48,"ht":36,"area":false},{"k":"Kits projet","t":"shelf","z":"mod","x":1090,"y":6,"w":70,"h":48,"ht":84,"area":false},{"k":"Quincaillerie","t":"shelf","z":"mod","x":1090,"y":70,"w":70,"h":48,"ht":84,"area":false},{"k":"Chariot élév.","t":"forklift","z":"mat","x":6,"y":360,"w":64,"h":61,"ht":84,"area":false},{"k":"Rack bois massif","t":"rackLumber","z":"tra","x":100,"y":382,"w":240,"h":48,"ht":96,"area":false},{"k":"SCM M3","t":"rip","z":"tra","x":360,"y":350,"w":56,"h":78,"ht":62,"area":false},{"k":"Raboteuse","t":"planer","z":"tra","x":440,"y":390,"w":56,"h":24,"ht":45,"area":false},{"k":"Profimat","t":"moulder","z":"tra","x":440,"y":320,"w":128,"h":39,"ht":66,"area":false},{"k":"Toupie","t":"shaper","z":"tra","x":600,"y":380,"w":26,"h":37,"ht":48,"area":false},{"k":"Ruban","t":"band","z":"tra","x":640,"y":370,"w":27,"h":50,"ht":78,"area":false},{"k":"Ponc. large","t":"sander","z":"tra","x":700,"y":340,"w":58,"h":73,"ht":72,"area":false},{"k":"Ponc. #10?","t":"sander","z":"tra","x":780,"y":350,"w":76,"h":48,"ht":60,"area":false},{"k":"Ponc. bande","t":"sander","z":"tra","x":880,"y":400,"w":96,"h":22,"ht":45,"area":false},{"k":"Presse","t":"press","z":"tra","x":880,"y":320,"w":157,"h":60,"ht":108,"area":false},{"k":"Stratifié","t":"rackSheet","z":"tra","x":1050,"y":350,"w":110,"h":60,"ht":48,"area":false},{"k":"Scie #2","t":"saw","z":"ass","x":1180,"y":6,"w":79,"h":82,"ht":40,"area":false},{"k":"Onglet","t":"miter","z":"ass","x":1290,"y":6,"w":85,"h":24,"ht":42,"area":false},{"k":"Onglet","t":"miter","z":"ass","x":1400,"y":6,"w":85,"h":24,"ht":42,"area":false},{"k":"Établi","t":"bench","z":"ass","x":1290,"y":100,"w":96,"h":48,"ht":36,"area":false},{"k":"Établi","t":"bench","z":"ass","x":1410,"y":100,"w":96,"h":48,"ht":36,"area":false},{"k":"Établi","t":"bench","z":"ass","x":1180,"y":330,"w":96,"h":48,"ht":36,"area":false},{"k":"Établi","t":"bench","z":"ass","x":1300,"y":330,"w":96,"h":48,"ht":36,"area":false},{"k":"Établi","t":"bench","z":"ass","x":1420,"y":330,"w":96,"h":48,"ht":36,"area":false},{"k":"Kits","t":"area","z":"ass","x":1180,"y":100,"w":48,"h":48,"ht":0,"area":true},{"k":"Emballage","t":"pack","z":"exp","x":1550,"y":10,"w":96,"h":48,"ht":36,"area":false},{"k":"Emballage","t":"pack","z":"exp","x":1550,"y":70,"w":96,"h":48,"ht":36,"area":false},{"k":"Produits finis","t":"area","z":"exp","x":1670,"y":6,"w":105,"h":110,"ht":0,"area":true}]},"C":{"opening":[74,177],"aisles":[[0,60,340,215],[360,180,681,258],[610,74,681,258]],"flow":[[170,62],[170,200],[645,200],[645,140],[1700,140],[1770,200]],"items":[{"k":"Rack panneaux 4×8 · 3 baies","t":"rackPanel","z":"mat","x":6,"y":6,"w":312,"h":54,"ht":96,"area":false},{"k":"Chariot élév.","t":"forklift","z":"mat","x":6,"y":340,"w":64,"h":61,"ht":84,"area":false},{"k":"CNC Rover B","t":"cnc","z":"mod","x":237,"y":258,"w":48,"h":165,"ht":80,"area":false},{"k":"Bandeuse","t":"edge","z":"mod","x":204,"y":219,"w":155,"h":25,"ht":60,"area":false},{"k":"Profimat","t":"moulder","z":"tra","x":357,"y":6,"w":128,"h":39,"ht":66,"area":false},{"k":"Ponc. large","t":"sander","z":"tra","x":550,"y":69,"w":58,"h":73,"ht":72,"area":false},{"k":"Presse","t":"press","z":"tra","x":565,"y":261,"w":60,"h":157,"ht":108,"area":false},{"k":"SCM M3","t":"rip","z":"tra","x":360,"y":96,"w":56,"h":78,"ht":62,"area":false},{"k":"Raboteuse","t":"planer","z":"tra","x":440,"y":96,"w":56,"h":24,"ht":45,"area":false},{"k":"Toupie","t":"shaper","z":"tra","x":440,"y":130,"w":26,"h":37,"ht":48,"area":false},{"k":"Ruban","t":"band","z":"tra","x":480,"y":130,"w":27,"h":50,"ht":78,"area":false},{"k":"Ponc. #10?","t":"sander","z":"tra","x":380,"y":270,"w":48,"h":76,"ht":60,"area":false},{"k":"Ponc. bande","t":"sander","z":"tra","x":640,"y":300,"w":22,"h":96,"ht":45,"area":false},{"k":"Rack bois massif","t":"rackLumber","z":"tra","x":300,"y":382,"w":240,"h":48,"ht":96,"area":false},{"k":"Stratifié","t":"rackSheet","z":"tra","x":440,"y":300,"w":110,"h":60,"ht":48,"area":false},{"k":"Scie à panneaux","t":"panelsaw","z":"mod","x":743,"y":47,"w":226,"h":66,"ht":40,"area":false},{"k":"Tampon pièces","t":"area","z":"mod","x":700,"y":200,"w":260,"h":160,"ht":0,"area":true},{"k":"Kits projet","t":"shelf","z":"ass","x":1000,"y":406,"w":96,"h":24,"ht":84,"area":false},{"k":"Quincaillerie","t":"shelf","z":"ass","x":1110,"y":406,"w":120,"h":24,"ht":84,"area":false},{"k":"Scie #2","t":"saw","z":"ass","x":1000,"y":6,"w":79,"h":82,"ht":40,"area":false},{"k":"Blum","t":"blum","z":"ass","x":1110,"y":6,"w":85,"h":23,"ht":60,"area":false},{"k":"Onglet","t":"miter","z":"ass","x":1220,"y":6,"w":85,"h":24,"ht":42,"area":false},{"k":"Onglet","t":"miter","z":"ass","x":1330,"y":6,"w":85,"h":24,"ht":42,"area":false},{"k":"Établi","t":"bench","z":"ass","x":1000,"y":300,"w":96,"h":48,"ht":36,"area":false},{"k":"Établi","t":"bench","z":"ass","x":1130,"y":300,"w":96,"h":48,"ht":36,"area":false},{"k":"Établi","t":"bench","z":"ass","x":1260,"y":300,"w":96,"h":48,"ht":36,"area":false},{"k":"Établi","t":"bench","z":"ass","x":1000,"y":180,"w":96,"h":48,"ht":36,"area":false},{"k":"Établi","t":"bench","z":"ass","x":1130,"y":180,"w":96,"h":48,"ht":36,"area":false},{"k":"Établi","t":"bench","z":"ass","x":1260,"y":180,"w":96,"h":48,"ht":36,"area":false},{"k":"Emballage","t":"pack","z":"exp","x":1550,"y":10,"w":96,"h":48,"ht":36,"area":false},{"k":"Emballage","t":"pack","z":"exp","x":1550,"y":70,"w":96,"h":48,"ht":36,"area":false},{"k":"Produits finis","t":"area","z":"exp","x":1670,"y":6,"w":105,"h":110,"ht":0,"area":true}]}}}</script>
+  </div>
+</section>
+<!-- scenarios:end -->
+
 <section class="block" id="feuille-de-route">
   <div class="wrap">
     <div class="head">
       <div>
-        <p class="mono kicker"><span data-l="fr">04 · Le plan de match</span><span data-l="en">04 · The game plan</span></p>
+        <p class="mono kicker"><span data-l="fr">05 · Le plan de match</span><span data-l="en">05 · The game plan</span></p>
         <h2><span data-l="fr">Mesurer avant de déplacer quoi que ce soit</span><span data-l="en">Measure before moving anything</span></h2>
       </div>
       <p data-l="fr">Les premiers gains se font sans réaménager l’atelier. Le réaménagement vient ensuite, une fois les données en main et le plan validé avec votre équipe.</p>
@@ -777,6 +924,707 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   document.querySelectorAll("[data-go]").forEach(function (a) {
     a.addEventListener("click", function () { show(a.getAttribute("data-go")); });
   });
+
+  /* scenarios */
+  (function () {
+    var D = JSON.parse(document.getElementById("sc-data").textContent);
+    var NS = "http://www.w3.org/2000/svg";
+    var THREE_URL = "https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js";
+    var ORBIT_URL = "https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js";
+    var S = { sc: "actuel", view: "2d", flow: true, names: true, focus: null };
+    var el = function (id) { return document.getElementById(id); };
+    var plan = el("sc-2d"), box3 = el("sc-3d"), tip = el("sc-tip"), stage = el("sc-stage");
+    var ZN = { mod: ["Moderne", "Modern"], tra: ["Traditionnel", "Traditional"], ass: ["Assemblage", "Assembly"], mat: ["Matières", "Materials"], exp: ["Emballage et expédition", "Packing and shipping"], fix: ["Existant", "Existing"] };
+    function en() { return root.getAttribute("data-lang") === "en"; }
+    function t(fr, eng) { return en() ? eng : fr; }
+    function nm(k, full) { var n = D.names[k] || { fr: [k, k], en: [k, k] }; return (en() ? n.en : n.fr)[full ? 1 : 0]; }
+    function len(v) {
+      var r = Math.round(v), f = Math.floor(r / 12), i = r % 12;
+      return en() ? f + " ft" + (i ? " " + i + " in" : "") : f + " pi" + (i ? " " + i + " po" : "");
+    }
+    function pathFt(s) {
+      var p = D.sc[s].flow, d = 0;
+      for (var i = 1; i < p.length; i++) d += Math.hypot(p[i][0] - p[i - 1][0], p[i][1] - p[i - 1][1]);
+      return Math.round(d / 12 / 5) * 5;
+    }
+    function css(v) { return getComputedStyle(root).getPropertyValue(v).trim(); }
+
+    /* ---------- 2D plan ---------- */
+    function E(tag, a, parent) {
+      var n = document.createElementNS(NS, tag);
+      for (var k in a) n.setAttribute(k, a[k]);
+      if (parent) parent.appendChild(n);
+      return n;
+    }
+    function line(g, x1, y1, x2, y2, cls) { return E("line", { x1: x1, y1: y1, x2: x2, y2: y2, "class": cls || "s" }, g); }
+    function rect(g, x, y, w, h, cls, rx) { return E("rect", { x: x, y: y, width: Math.max(w, 0), height: Math.max(h, 0), rx: rx || 0, "class": cls }, g); }
+    function circ(g, cx, cy, r, cls) { return E("circle", { cx: cx, cy: cy, r: Math.max(r, 1), "class": cls || "s" }, g); }
+
+    /* draws a machine symbol inside (x, y, w, h), in SVG coordinates, along its long axis */
+    function symbol(g, it, x, y, w, h) {
+      var hz = w >= h, L = hz ? w : h, Sh = hz ? h : w, cx = x + w / 2, cy = y + h / 2, m = Math.min(w, h);
+      function P(a, b) { return hz ? [x + a, y + b] : [x + b, y + a]; }            // a along long axis, b across
+      function seg(a1, b1, a2, b2, cls) { var p = P(a1, b1), q = P(a2, b2); line(g, p[0], p[1], q[0], q[1], cls); }
+      function box(a, b, la, lb, cls, rx) { var p = P(a, b); rect(g, p[0], p[1], hz ? la : lb, hz ? lb : la, cls, rx); }
+      function arrow(a1, a2, b) { seg(a1, b, a2, b); seg(a2 - 8, b - 6, a2, b); seg(a2 - 8, b + 6, a2, b); }
+      var i, n;
+      switch (it.t) {
+        case "cnc":
+          box(5, 5, L - 10, Sh - 10, "sw", 2);
+          for (i = 18; i < L - 8; i += 16) seg(i, 7, i, Sh - 7);
+          box(L * 0.32, -3, 12, Sh + 6, "sf", 2);
+          box(L * 0.32 - 4, Sh / 2 - 9, 20, 18, "sw", 3);
+          break;
+        case "edge":
+          box(4, Sh / 2 - 6, L - 8, 12, "sw", 6);
+          for (i = 18; i < L - 10; i += 14) circ(g, P(i, Sh / 2)[0], P(i, Sh / 2)[1], 3, "s");
+          circ(g, P(14, Sh / 2)[0], P(14, Sh / 2)[1], Math.min(Sh * 0.35, 9), "sf");
+          arrow(L * 0.35, L - 10, Sh / 2);
+          break;
+        case "panelsaw":
+          box(4, Sh * 0.18, L - 8, 7, "sf", 2);
+          box(L * 0.55, Sh * 0.4, L * 0.4, Sh * 0.52, "sw", 2);
+          circ(g, P(L * 0.75, Sh * 0.66)[0], P(L * 0.75, Sh * 0.66)[1], Sh * 0.16, "s");
+          seg(L * 0.6, Sh * 0.66, L * 0.9, Sh * 0.66);
+          break;
+        case "saw":
+          box(6, 6, L - 12, Sh - 12, "sw", 2);
+          circ(g, cx, cy, m * 0.22, "s"); seg(L * 0.2, Sh / 2, L * 0.8, Sh / 2);
+          seg(L * 0.15, Sh * 0.25, L * 0.85, Sh * 0.25);
+          break;
+        case "miter":
+          seg(4, Sh * 0.3, L - 4, Sh * 0.3);
+          circ(g, cx, cy, m * 0.32, "sw"); circ(g, cx, cy, m * 0.08, "sf");
+          break;
+        case "band":
+          circ(g, cx, cy, m * 0.36, "sw"); circ(g, cx, cy, m * 0.1, "sf");
+          box(L * 0.15, Sh * 0.15, L * 0.25, Sh * 0.7, "s", 2);
+          break;
+        case "press":
+          box(6, 6, L - 12, Sh - 12, "sw", 2);
+          box(12, 12, L - 24, Sh - 24, "s", 2);
+          n = 4;
+          for (i = 0; i < n; i++) { circ(g, P(14 + i * (L - 28) / (n - 1), 9)[0], P(14 + i * (L - 28) / (n - 1), 9)[1], 4, "sf"); circ(g, P(14 + i * (L - 28) / (n - 1), Sh - 9)[0], P(14 + i * (L - 28) / (n - 1), Sh - 9)[1], 4, "sf"); }
+          break;
+        case "sander":
+          box(6, Sh * 0.2, L - 12, Sh * 0.6, "sw", Math.min(Sh * 0.3, 14));
+          arrow(L * 0.25, L * 0.75, Sh / 2);
+          break;
+        case "moulder": case "rip": case "planer":
+          box(4, Sh * 0.25, L - 8, Sh * 0.5, "sw", 3);
+          n = it.t === "moulder" ? 4 : 2;
+          for (i = 1; i <= n; i++) circ(g, P(L * i / (n + 1), Sh / 2)[0], P(L * i / (n + 1), Sh / 2)[1], Math.min(Sh * 0.16, 7), "sf");
+          arrow(6, L - 6, Sh * 0.12);
+          break;
+        case "shaper":
+          seg(Sh * 0.1, Sh * 0.3, L - 4, Sh * 0.3);
+          circ(g, cx, cy, m * 0.22, "sw"); circ(g, cx, cy, m * 0.07, "sf");
+          break;
+        case "blum":
+          box(4, Sh * 0.3, L - 8, Sh * 0.4, "sw", 2);
+          circ(g, cx, cy, Math.min(Sh * 0.42, 10), "sf");
+          break;
+        case "bench": case "table": case "pack":
+          box(5, 5, L - 10, Sh - 10, "sw", 3);
+          if (it.t === "bench") box(L - 18, -2, 12, 7, "sf", 1);
+          if (it.t === "pack") { seg(L / 2, 5, L / 2, Sh - 5); seg(5, Sh / 2, L - 5, Sh / 2); }
+          break;
+        case "rackPanel":
+          n = Math.max(1, Math.round(L / 104));
+          for (i = 0; i < n; i++) { box(4 + i * (L - 8) / n + 3, 6, (L - 8) / n - 6, Sh - 12, "sw", 2); seg(4 + i * (L - 8) / n + 8, Sh * 0.4, 4 + (i + 1) * (L - 8) / n - 8, Sh * 0.4); seg(4 + i * (L - 8) / n + 8, Sh * 0.6, 4 + (i + 1) * (L - 8) / n - 8, Sh * 0.6); }
+          break;
+        case "rackLumber":
+          seg(4, Sh - 6, L - 4, Sh - 6);
+          for (i = 12; i < L - 6; i += 30) seg(i, Sh - 6, i, 6);
+          seg(6, Sh * 0.45, L - 6, Sh * 0.45); seg(6, Sh * 0.3, L - 6, Sh * 0.3);
+          break;
+        case "rackSheet": case "pallet":
+          for (i = 1; i < 4; i++) seg(6, Sh * i / 4, L - 6, Sh * i / 4);
+          break;
+        case "shelf":
+          box(3, 3, L - 6, Sh - 6, "sw", 1);
+          for (i = 16; i < L - 6; i += 16) seg(i, 3, i, Sh - 3);
+          if (Sh > 30) seg(3, Sh / 2, L - 3, Sh / 2);
+          break;
+        case "forklift":
+          box(L * 0.3, 6, L * 0.62, Sh - 12, "sw", 6);
+          seg(4, Sh * 0.32, L * 0.3, Sh * 0.32); seg(4, Sh * 0.68, L * 0.3, Sh * 0.68);
+          break;
+        case "truck":
+          box(L * 0.76, 6, L * 0.2, Sh - 12, "sf", 6);
+          box(6, 4, L * 0.68, Sh - 8, "sw", 3);
+          break;
+      }
+    }
+
+    function fitLabel(txt, w, h) {
+      var n = Math.max(txt.length, 1), hs = Math.min(17, (w - 10) / (0.58 * n), h * 0.55), vs = Math.min(17, (h - 10) / (0.58 * n), w * 0.55);
+      if (hs >= 11 || (hs >= vs && hs >= 9)) return { s: hs, r: false };
+      if (vs >= 9) return { s: vs, r: true };
+      return null;
+    }
+
+    function draw2d() {
+      var sc = D.sc[S.sc], W = D.W, H = D.H, sy = function (y) { return H - y; };
+      var svg = E("svg", { viewBox: "-80 -50 " + (W + 170) + " " + (H + 110), role: "img",
+        "aria-label": t("Plan à l’échelle", "Plan to scale") + " · " + document.querySelector("#sc-t-" + S.sc + " .sc-name [data-l='" + (en() ? "en" : "fr") + "']").textContent });
+      if (S.focus) svg.setAttribute("data-focus", S.focus);
+      var defs = E("defs", {}, svg);
+      var pat = E("pattern", { id: "sv-hatch", width: 14, height: 14, patternUnits: "userSpaceOnUse", patternTransform: "rotate(45)" }, defs);
+      E("line", { x1: 0, y1: 0, x2: 0, y2: 14, "class": "sv-hatch-l" }, pat);
+      var mk = E("marker", { id: "sv-ar", viewBox: "0 0 10 10", refX: 6, refY: 5, markerWidth: 4.5, markerHeight: 4.5, orient: "auto" }, defs);
+      E("path", { d: "M0 0L10 5L0 10z", "class": "sv-arrow" }, mk);
+
+      rect(svg, 0, 0, W, H, "sv-floor");
+      for (var gx = 120; gx < W; gx += 120) line(svg, gx, 0, gx, H, "sv-grid");
+      for (var gy = 120; gy < H; gy += 120) line(svg, 0, sy(gy), W, sy(gy), "sv-grid");
+      sc.aisles.forEach(function (a) { rect(svg, a[0], sy(a[3]), a[2] - a[0], a[3] - a[1], "sv-aisle"); });
+
+      var c = D.cafe;
+      rect(svg, c[0], sy(c[1] + c[3]), c[2], c[3], "sv-room");
+      var cl = E("text", { x: c[0] + c[2] / 2, y: sy(c[1] + c[3] / 2) + 6, "class": "sv-l", style: "stroke:var(--surface)", "font-size": 17 }, svg);
+      cl.textContent = t("Cafétéria", "Cafeteria");
+
+      sc.items.forEach(function (it, idx) {
+        var g = E("g", { "class": "m z-" + it.z + (it.area ? " is-area" : ""), "data-i": idx }, svg);
+        var x = it.x, y = sy(it.y + it.h);
+        if (it.t === "room") rect(g, x, y, it.w, it.h, "b sv-room", 2);
+        else rect(g, x, y, it.w, it.h, "b", it.area ? 6 : 4);
+        if (!it.area) symbol(g, it, x, y, it.w, it.h);
+        var name = nm(it.k), f = fitLabel(name, it.w, it.h);
+        if (f && f.s < 10) f = null;
+        if (f) {
+          var lx = x + it.w / 2, ly = y + it.h / 2;
+          var tx = E("text", { x: lx, y: ly + f.s * 0.36, "font-size": f.s.toFixed(1), "class": "sv-l" }, g);
+          if (f.r) tx.setAttribute("transform", "rotate(-90 " + lx + " " + ly + ")");
+          tx.textContent = name;
+        }
+      });
+
+      var o = sc.opening;
+      rect(svg, 0, 0, W, H, "sv-wall");
+      rect(svg, 681, sy(o[0]), 6, o[0], "sv-part");
+      rect(svg, 681, 0, 6, H - o[1], "sv-part");
+      line(svg, 0, sy(D.inDoor[0]), 0, sy(D.inDoor[1]), "sv-door sv-in");
+      line(svg, W, sy(D.outDoor[0]), W, sy(D.outDoor[1]), "sv-door sv-out");
+      var ti = E("text", { x: -14, y: sy((D.inDoor[0] + D.inDoor[1]) / 2) + 6, "text-anchor": "end", "class": "sv-doort sv-in-t" }, svg);
+      ti.textContent = t("ENTRÉE", "IN");
+      var to = E("text", { x: W + 14, y: sy((D.outDoor[0] + D.outDoor[1]) / 2) + 6, "class": "sv-doort sv-out-t" }, svg);
+      to.textContent = t("SORTIE", "OUT");
+
+      var f0 = sc.flow[0];
+      E("polyline", { points: sc.flow.map(function (p) { return p[0] + "," + sy(p[1]); }).join(" "), "class": "sv-flow", "marker-end": "url(#sv-ar)" }, svg);
+      circ(svg, f0[0], sy(f0[1]), 9, "sv-flow-dot");
+
+      line(svg, 0, H + 28, 120, H + 28, "sv-scale");
+      var s0 = E("text", { x: 0, y: H + 52, "class": "sv-small" }, svg); s0.textContent = "0";
+      var s1 = E("text", { x: 120, y: H + 52, "text-anchor": "middle", "class": "sv-small" }, svg); s1.textContent = t("10 pi", "10 ft");
+
+      plan.innerHTML = "";
+      plan.appendChild(svg);
+      function onPoint(e) {
+        var g = e.target.closest && e.target.closest(".m");
+        plan.querySelectorAll(".m.is-hot").forEach(function (n) { if (n !== g) n.classList.remove("is-hot"); });
+        if (!g) return hideTip();
+        g.classList.add("is-hot");
+        showTip(sc.items[+g.getAttribute("data-i")], e.clientX, e.clientY);
+      }
+      svg.addEventListener("pointermove", function (e) { if (e.pointerType === "mouse") onPoint(e); });
+      svg.addEventListener("click", onPoint);
+      svg.addEventListener("pointerleave", hideTip);
+    }
+
+    /* ---------- tooltip ---------- */
+    function showTip(it, px, py) {
+      var r = stage.getBoundingClientRect();
+      var dims = it.area ? len(it.w) + " × " + len(it.h) : len(it.w) + " × " + len(it.h) + (it.ht ? " · " + t("hauteur ≈ ", "height ≈ ") + len(it.ht) : "");
+      tip.innerHTML = "<strong></strong><span></span><span></span>";
+      tip.children[0].textContent = nm(it.k, true);
+      tip.children[1].textContent = dims;
+      tip.children[2].textContent = (en() ? ZN[it.z][1] : ZN[it.z][0]);
+      tip.hidden = false;
+      var x = px - r.left + 14, y = py - r.top + 14, tw = tip.offsetWidth, th = tip.offsetHeight;
+      if (x + tw > r.width - 8) x = px - r.left - tw - 14;
+      if (y + th > r.height - 8) y = py - r.top - th - 14;
+      tip.style.left = Math.max(8, x) + "px";
+      tip.style.top = Math.max(8, y) + "px";
+    }
+    function hideTip() { tip.hidden = true; }
+
+    /* ---------- 3D ---------- */
+    var T = null, loading = null;
+    function loadScript(src) {
+      return new Promise(function (ok, ko) { var s = document.createElement("script"); s.src = src; s.onload = ok; s.onerror = ko; document.head.appendChild(s); });
+    }
+    function load3d() {
+      if (window.THREE && window.THREE.OrbitControls) return Promise.resolve();
+      if (!loading) loading = loadScript(THREE_URL).then(function () { return loadScript(ORBIT_URL); });
+      return loading;
+    }
+    function msg(text) {
+      var m = box3.querySelector(".sc-3d-msg");
+      if (!text) { if (m) m.remove(); return; }
+      if (!m) { m = document.createElement("div"); m.className = "sc-3d-msg"; box3.appendChild(m); }
+      m.textContent = text;
+    }
+    function init3d() {
+      var THREE = window.THREE;
+      var canvas = document.createElement("canvas");
+      canvas.setAttribute("aria-label", t("Vue 3D de l’atelier", "3D view of the shop"));
+      box3.insertBefore(canvas, box3.firstChild);
+      var renderer = new THREE.WebGLRenderer({ canvas: canvas, antialias: true, alpha: true });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+      var scene = new THREE.Scene();
+      var camera = new THREE.PerspectiveCamera(38, 2, 1, 2000);
+      var controls = new THREE.OrbitControls(camera, canvas);
+      controls.enableDamping = true;
+      controls.dampingFactor = 0.08;
+      controls.maxPolarAngle = Math.PI * 0.48;
+      controls.minDistance = 20;
+      controls.maxDistance = 320;
+      T = { THREE: THREE, renderer: renderer, scene: scene, camera: camera, controls: controls, canvas: canvas, root: null, pick: [], labels: [], running: false, hot: null };
+      var hemi = new THREE.HemisphereLight(0xffffff, 0x8a8f94, 0.75);
+      scene.add(hemi);
+      var sun = new THREE.DirectionalLight(0xffffff, 0.75);
+      sun.position.set(-50, 110, 70);
+      sun.castShadow = true;
+      sun.shadow.mapSize.set(2048, 2048);
+      var sc = sun.shadow.camera; sc.left = -90; sc.right = 90; sc.top = 40; sc.bottom = -40; sc.far = 300;
+      scene.add(sun);
+      T.sun = sun;
+      new ResizeObserver(size3d).observe(box3);
+      var ray = new THREE.Raycaster(), v = new THREE.Vector2(), downAt = null;
+      function pickAt(e) {
+        var r = canvas.getBoundingClientRect();
+        v.set(((e.clientX - r.left) / r.width) * 2 - 1, -((e.clientY - r.top) / r.height) * 2 + 1);
+        ray.setFromCamera(v, camera);
+        var hit = ray.intersectObjects(T.pick, false)[0];
+        return hit ? hit.object.userData.it : null;
+      }
+      function hover(e) {
+        var it = pickAt(e);
+        setHot(it);
+        if (it) showTip(it, e.clientX, e.clientY); else hideTip();
+      }
+      canvas.addEventListener("pointermove", function (e) { if (e.buttons === 0) hover(e); else hideTip(); });
+      canvas.addEventListener("pointerdown", function (e) { downAt = [e.clientX, e.clientY]; });
+      canvas.addEventListener("pointerup", function (e) { if (downAt && Math.hypot(e.clientX - downAt[0], e.clientY - downAt[1]) < 6) hover(e); });
+      canvas.addEventListener("pointerleave", function () { setHot(null); hideTip(); });
+      controls.addEventListener("start", hideTip);
+    }
+    function setHot(it) {
+      if (!T || T.hot === it) return;
+      T.pick.forEach(function (m) { m.material.emissive && m.material.emissive.setHex(m.userData.it === it ? 0x2a2210 : 0x000000); });
+      T.hot = it;
+    }
+    function size3d() {
+      if (!T) return;
+      var w = box3.clientWidth, h = box3.clientHeight;
+      if (!w || !h) return;
+      T.renderer.setSize(w, h, false);
+      T.camera.aspect = w / h;
+      T.camera.updateProjectionMatrix();
+    }
+    function frame(top) {
+      var THREE = T.THREE, cam = T.camera, fit = (D.W / 12) / 2 * 1.08;
+      var hf = 2 * Math.atan(Math.tan(cam.fov * Math.PI / 360) * cam.aspect);
+      var dist = Math.max(fit / Math.tan(hf / 2), (D.H / 12) * 1.6);
+      T.controls.target.set(0, 0, 0);
+      if (top) cam.position.set(0, dist * 1.05, 0.01);
+      else if (cam.aspect < 1.2) { cam.position.set(-D.W / 24 - 16, 38, 30); T.controls.target.set(10, 0, 0); }  // narrow screens: look down the shop
+      else cam.position.copy(new THREE.Vector3(-0.15, 0.95, 0.75).normalize().multiplyScalar(dist * 1.02));
+      T.controls.update();
+    }
+    function colorOf(zone) {
+      var c = { mod: ["--plan-soft", "--plan"], tra: ["--birch-soft", "--birch"], ass: ["--green-soft", "--green"], mat: ["--bg", "--muted"], exp: ["--bg", "--muted"], fix: ["--rule", "--muted"] }[zone];
+      return [css(c[0]), css(c[1])];
+    }
+    function labelSprite(text, color, bg) {
+      var THREE = T.THREE, s = 64, pad = 22, cv = document.createElement("canvas"), cx = cv.getContext("2d");
+      var font = "700 " + s * 0.55 + "px Manrope, sans-serif";
+      cx.font = font;
+      var w = Math.ceil(cx.measureText(text).width) + pad * 2;
+      cv.width = w; cv.height = s;
+      cx.font = font;
+      cx.fillStyle = bg; cx.globalAlpha = 0.92;
+      var r = 14; cx.beginPath(); cx.moveTo(r, 0); cx.arcTo(w, 0, w, s, r); cx.arcTo(w, s, 0, s, r); cx.arcTo(0, s, 0, 0, r); cx.arcTo(0, 0, w, 0, r); cx.fill();
+      cx.globalAlpha = 1; cx.fillStyle = color; cx.textBaseline = "middle"; cx.fillText(text, pad, s / 2 + 2);
+      var tex = new THREE.CanvasTexture(cv);
+      tex.anisotropy = 4;
+      var sp = new THREE.Sprite(new THREE.SpriteMaterial({ map: tex, depthTest: false, transparent: true }));
+      var hgt = 2.1;
+      sp.scale.set(hgt * w / s, hgt, 1);
+      sp.renderOrder = 10;
+      return sp;
+    }
+    // Shop-floor colours: machines keep a realistic finish, the zone shows as an accent stripe and a floor pad.
+    var PAINT = {
+      steel: "#aeb5b8", dark: "#454d52", iron: "#8e979b", alu: "#d5d9db", white: "#e9ebe8", green: "#8aa37d",
+      cream: "#e4dfcd", wood: "#c99a5c", mdf: "#cfb98f", mel: "#eceae4", walnut: "#8a6240", orange: "#e0782b",
+      red: "#c0392b", black: "#2a2f33", yellow: "#e8b422", card: "#c4a26f", glass: "#6f8796"
+    };
+
+    // One simple model per machine type. a = along the long side, b = across it (inches).
+    function machine3d(it, accent, boxAt, cylAt, mat) {
+      var hz = it.w >= it.h, L = hz ? it.w : it.h, S = hz ? it.h : it.w, P = {};
+      var made = {};  // materials are per machine (so hover highlights one machine) and created on first use
+      Object.keys(PAINT).forEach(function (k) {
+        Object.defineProperty(P, k, { get: function () {
+          return made[k] || (made[k] = mat(PAINT[k], k === "alu" || k === "steel" ? { metalness: 0.35, roughness: 0.55 } : null));
+        } });
+      });
+      P.accent = mat(accent);
+      function B(a, b, la, lb, z0, ht, m) { return hz ? boxAt(it.x + a, it.y + b, la, lb, z0, ht, m) : boxAt(it.x + b, it.y + a, lb, la, z0, ht, m); }
+      function Cup(a, b, r, z0, ht, m) { return hz ? cylAt(it.x + a, it.y + b, z0, r, ht, m) : cylAt(it.x + b, it.y + a, z0, r, ht, m); }
+      function Cside(a, b, r, zc, thick, m) { return hz ? cylAt(it.x + a, it.y + b, zc, r, thick, m, "z") : cylAt(it.x + b, it.y + a, zc, r, thick, m, "x"); }
+      function legs(z, m) { [[1, 1], [L - 4, 1], [1, S - 4], [L - 4, S - 4]].forEach(function (q) { B(q[0], q[1], 3, 3, 0, z, m); }); }
+      switch (it.t) {
+        case "cnc":
+          B(0, 4, L, S - 8, 0, 30, P.dark);                       // frame
+          B(0, 0, L, S, 30, 3, P.mdf);                            // spoilboard
+          B(0, -2, L, 2, 28, 7, P.alu); B(0, S, L, 2, 28, 7, P.alu);  // rails
+          var g = L * 0.42;
+          B(g, -6, 14, 5, 30, 46, P.white); B(g, S + 1, 14, 5, 30, 46, P.white);  // gantry legs
+          B(g, -6, 14, S + 12, 70, 14, P.white);                  // beam
+          B(g + 1, -6.4, 12, S + 12.8, 74, 3, P.accent);          // accent stripe
+          B(g - 3, S / 2 - 9, 20, 18, 46, 26, P.steel);           // spindle carriage
+          Cup(g + 7, S / 2, 2, 38, 8, P.dark);                    // spindle
+          break;
+        case "edge":
+          B(0, 0, L, S, 0, 32, P.white);
+          B(0, 0, L * 0.14, S, 32, 2, P.alu); B(L * 0.86, 0, L * 0.14, S, 32, 2, P.alu);
+          B(L * 0.14, 0, L * 0.72, S, 32, 18, P.white);
+          B(L * 0.14, -0.4, L * 0.72, 0.8, 40, 4, P.accent);
+          Cup(L * 0.2, S / 2, Math.min(S * 0.35, 7), 50, 8, P.dark);  // glue pot
+          B(L * 0.5, S - 2, 12, 4, 50, 14, P.black);              // control screen
+          break;
+        case "panelsaw":
+          B(L * 0.42, S * 0.25, L * 0.2, S * 0.55, 0, 34, P.green);
+          B(L * 0.36, S * 0.2, L * 0.32, S * 0.7, 34, 2, P.iron);           // main table
+          B(0, S * 0.04, L, S * 0.15, 34, 3, P.alu);                        // sliding carriage
+          B(L * 0.2, S * 0.07, L * 0.6, S * 0.08, 6, 26, P.dark);           // carriage rail
+          B(L * 0.12, S * 0.2, 5, S * 0.72, 37, 3, P.alu);                  // crosscut fence
+          B(L * 0.38, S * 0.66, L * 0.28, 2.5, 36, 3.5, P.alu);             // rip fence
+          Cside(L * 0.55, S * 0.27, 6, 37, 0.5, P.steel);                   // blade
+          B(L * 0.55 - 5, S * 0.23, 10, 6, 46, 4, P.red);                   // blade guard
+          B(L * 0.55 - 1, S * 0.25, 2, 2, 50, 18, P.dark);                  // guard arm
+          B(L * 0.36, S * 0.2 - 0.4, L * 0.32, 0.8, 30, 3, P.accent);
+          break;
+        case "saw":
+          B(L * 0.3, S * 0.3, L * 0.4, S * 0.4, 0, 34, P.green);
+          B(0, 0, L, S, 34, 2.5, P.iron);
+          B(0, S * 0.68, L, 2.5, 36.5, 3.5, P.alu);
+          Cside(L / 2, S * 0.4, 5, 37, 0.5, P.steel);
+          B(L / 2 - 5, S * 0.36, 10, 6, 44, 4, P.red);
+          B(L * 0.3, S * 0.3 - 0.4, L * 0.4, 0.8, 26, 3, P.accent);
+          break;
+        case "miter":
+          legs(30, P.dark); B(0, 0, L, S, 30, 2, P.wood);
+          B(0, S * 0.12, L, 1.5, 32, 3, P.alu);                             // fence
+          B(L / 2 - 8, S * 0.2, 16, S * 0.6, 32, 3, P.dark);                // turntable
+          B(L / 2 - 2, S * 0.66, 4, 4, 32, 12, P.dark);                     // arm
+          B(L / 2 - 7, S * 0.22, 14, S * 0.5, 41, 7, P.red);                // motor head
+          Cside(L / 2, S * 0.4, 5, 38, 0.5, P.steel);
+          break;
+        case "band":
+          B(0, 0, L, S, 0, 24, P.green);
+          B(L * 0.6, S * 0.2, L * 0.4, S * 0.6, 24, 50, P.green);           // column
+          B(0, S * 0.15, L, S * 0.7, 62, 16, P.green);                      // upper wheel housing
+          B(-2, S * 0.1, L * 0.62, S * 0.8, 38, 2, P.iron);                 // table
+          Cside(L * 0.45, S * 0.15, Math.min(L, S) * 0.42, 70, 1, P.cream); // wheel covers
+          Cside(L * 0.45, S * 0.15, Math.min(L, S) * 0.42, 14, 1, P.cream);
+          B(L * 0.3, S / 2 - 0.3, 0.6, 0.6, 40, 22, P.steel);               // blade
+          B(L * 0.6, S * 0.2 - 0.4, L * 0.4, 0.8, 40, 3, P.accent);
+          break;
+        case "press":
+          B(0, 0, L, S, 0, 30, P.steel);                                    // bed
+          B(2, 2, L - 4, S - 4, 30, 5, P.iron);                             // lower platen
+          B(2, 2, L - 4, S - 4, 56, 8, P.iron);                             // upper platen
+          B(0, 0, L, S, 86, 22, P.steel);                                   // top beam
+          [[0, 0], [L - 9, 0], [0, S - 9], [L - 9, S - 9]].forEach(function (q) { B(q[0], q[1], 9, 9, 30, 56, P.dark); });
+          B(0, -0.4, L, 0.8, 92, 4, P.accent);
+          B(L * 0.45, -8, 9, 6, 0, 66, P.white);                            // control column
+          break;
+        case "sander":
+          B(0, S * 0.15, L, S * 0.7, 0, Math.max(it.ht - 10, 30), P.green);
+          B(L * 0.15, 0, L * 0.7, S, 30, 5, P.black);                       // conveyor / table
+          B(0, S * 0.15, L, S * 0.7, Math.max(it.ht - 10, 30), 10, P.cream);
+          B(0, S * 0.15 - 0.4, L, 0.8, Math.max(it.ht - 22, 22), 4, P.accent);
+          Cup(L * 0.5, S * 0.5, Math.min(L, S) * 0.08, it.ht, 12, P.alu);   // dust port
+          break;
+        case "moulder": case "rip": case "planer":
+          var hz3 = it.t === "planer" ? 30 : 34;
+          B(0, 0, L, S, 0, hz3, it.t === "planer" ? P.steel : P.green);
+          B(0, S * 0.1, L, S * 0.8, hz3, 2.5, P.iron);
+          if (it.t === "planer") {
+            B(0, S * 0.85, L, 1.5, hz3 + 2.5, 6, P.alu);
+            B(L * 0.44, S * 0.15, L * 0.12, S * 0.65, hz3 + 2.5, 3, P.yellow);
+          } else {
+            var hl = it.t === "moulder" ? 0.6 : 0.45;
+            B(L * 0.25, 0, L * hl, S, hz3 + 2.5, 20, P.cream);
+            var n = it.t === "moulder" ? 4 : 2;
+            for (var i = 0; i < n; i++) Cup(L * 0.3 + i * (L * (hl - 0.1)) / Math.max(n - 1, 1), S * 0.5, 2.5, hz3 + 22, 14, P.alu);
+            B(L * 0.25, -0.4, L * hl, 0.8, hz3 + 10, 3, P.accent);
+          }
+          break;
+        case "shaper":
+          B(0, 0, L, S, 0, 32, P.green);
+          B(-1, -1, L + 2, S + 2, 32, 3, P.iron);
+          Cup(L / 2, S / 2, 1.8, 35, 6, P.steel);
+          B(L * 0.25, S * 0.15, 6, 6, 35, 14, P.dark);                      // feeder post
+          B(L * 0.15, S * 0.15, L * 0.6, 8, 49, 6, P.yellow);               // power feeder
+          B(0, -1.4, L, 0.8, 26, 3, P.accent);
+          break;
+        case "blum":
+          legs(32, P.dark); B(0, 0, L, S, 32, 2, P.alu);
+          B(L / 2 - 8, S * 0.55, 16, S * 0.45, 34, 28, P.steel);           // column
+          B(L / 2 - 7, S * 0.15, 14, S * 0.55, 48, 8, P.white);            // drilling head
+          B(L / 2 - 7, S * 0.15 - 0.4, 14, 0.8, 50, 3, P.accent);
+          B(0, S * 0.1, L, 1.5, 34, 3, P.alu);                             // fence
+          break;
+        case "bench": case "table": case "pack":
+          legs(it.ht - 3, P.dark);
+          B(3, 3, L - 6, S - 6, 8, 1.5, P.dark);                           // lower shelf
+          B(0, 0, L, S, it.ht - 3, 3, it.t === "pack" ? P.white : P.wood);
+          B(0, -0.4, L, 0.8, it.ht - 8, 3, P.accent);
+          if (it.t === "bench") B(L - 16, -3, 10, 6, it.ht - 6, 6, P.dark);   // vise
+          if (it.t === "pack") {
+            B(L * 0.1, S * 0.2, L * 0.3, S * 0.55, it.ht, 14, P.card);     // boxes
+            B(L * 0.15, S * 0.25, L * 0.22, S * 0.45, it.ht + 14, 10, P.card);
+            Cside(L * 0.75, S * 0.5, 4, it.ht + 4, S * 0.6, P.glass);      // stretch film roll
+          }
+          break;
+        case "rackPanel": case "rackLumber": case "rackSheet": case "shelf":
+          var bay = it.t === "rackPanel" ? 104 : it.t === "rackLumber" ? 48 : 32;
+          var posts = Math.max(2, Math.round(L / bay) + 1), lv = it.t === "rackSheet" ? 2 : it.t === "shelf" ? 5 : 3;
+          for (var p = 0; p < posts; p++) {
+            var a = p * (L - 4) / (posts - 1);
+            B(a, 0, 4, 4, 0, it.ht, P.accent);
+            if (it.t !== "rackLumber") B(a, S - 4, 4, 4, 0, it.ht, P.accent);
+          }
+          var stock = it.t === "rackLumber" ? [P.wood, P.walnut, P.wood] : it.t === "shelf" ? [P.yellow, P.glass, P.red] : [P.mel, P.walnut, P.white, P.mdf];
+          for (var l = 0; l < lv; l++) {
+            var z = 4 + l * (it.ht - 12) / Math.max(lv - 1, 1);
+            if (it.t === "rackLumber") {
+              for (var q = 0; q < posts; q++) B(q * (L - 4) / (posts - 1), 4, 4, S - 6, z, 3, P.dark);   // cantilever arms
+              B(6, 6, L - 12, S - 12, z + 3, 7, stock[l % stock.length]);
+            } else {
+              B(0, 0, L, S, z, 2, P.dark);
+              for (var c = 0; c < posts - 1; c++) {
+                var a0 = c * (L - 4) / (posts - 1) + 6, la = (L - 4) / (posts - 1) - 8;
+                if (it.t === "shelf") { for (var k2 = 0; k2 < 3; k2++) B(a0 + k2 * la / 3, 3, la / 3 - 2, S - 6, z + 2, 7, stock[(c + k2 + l) % 3]); }
+                else B(a0, 3, la, S - 6, z + 2, it.t === "rackPanel" ? 20 : 10, stock[(c + l) % stock.length]);
+              }
+            }
+          }
+          break;
+        case "pallet":
+          B(0, 0, L, S, 0, 5, P.wood);
+          B(2, 2, L - 4, S - 4, 5, 22, P.mel);
+          break;
+        case "forklift":
+          B(L * 0.25, 4, L * 0.55, S - 8, 8, 30, P.orange);               // body
+          B(L * 0.78, 4, L * 0.2, S - 8, 8, 34, P.dark);                  // counterweight
+          B(L * 0.3, 4, 3, 3, 38, 44, P.dark); B(L * 0.3, S - 7, 3, 3, 38, 44, P.dark);
+          B(L * 0.72, 4, 3, 3, 38, 44, P.dark); B(L * 0.72, S - 7, 3, 3, 38, 44, P.dark);
+          B(L * 0.3, 4, L * 0.45, S - 8, 80, 2, P.dark);                   // overhead guard
+          B(L * 0.14, S * 0.18, 4, 4, 0, it.ht, P.dark); B(L * 0.14, S * 0.78, 4, 4, 0, it.ht, P.dark);   // mast
+          B(0, S * 0.22, L * 0.16, 4, 2, 2, P.steel); B(0, S * 0.7, L * 0.16, 4, 2, 2, P.steel);           // forks
+          B(L * 0.45, S * 0.35, 10, S * 0.3, 38, 12, P.black);            // seat
+          [[L * 0.3, 2], [L * 0.3, S - 2], [L * 0.8, 2], [L * 0.8, S - 2]].forEach(function (w) { Cside(w[0], w[1], 8, 8, 5, P.black); });
+          break;
+        case "truck":
+          B(0, 0, L * 0.73, S, 24, it.ht - 24, P.white);                  // cargo box
+          B(L * 0.75, 2, L * 0.25, S - 4, 20, 50, P.white);               // cab
+          B(L * 0.97, 6, L * 0.03, S - 12, 46, 20, P.glass);              // windshield
+          B(0, 0, L, S, 14, 10, P.dark);                                  // chassis
+          [[L * 0.12, 0], [L * 0.12, S], [L * 0.85, 0], [L * 0.85, S]].forEach(function (w) { Cside(w[0], w[1], 15, 15, 8, P.black); });
+          break;
+        case "room":
+          B(0, 0, L, 3, 0, it.ht, P.white); B(0, S - 3, L, 3, 0, it.ht, P.white);
+          B(0, 0, 3, S, 0, it.ht, P.white); B(L - 3, 0, 3, S, 0, it.ht * 0.3, P.white);
+          break;
+        default:
+          B(0, 0, L, S, 0, it.ht, P.steel);
+      }
+    }
+
+    function build3d() {
+      var THREE = T.THREE, sc = D.sc[S.sc], W = D.W / 12, Hh = D.H / 12;
+      if (T.root) {
+        T.scene.remove(T.root);
+        T.root.traverse(function (o) {
+          if (o.geometry) o.geometry.dispose();
+          if (o.material) { if (o.material.map) o.material.map.dispose(); o.material.dispose(); }
+        });
+      }
+      var root3 = new THREE.Group(); T.root = root3; T.pick = []; T.labels = []; T.hot = null;
+      T.scene.add(root3);
+      function X(x) { return x / 12 - W / 2; }
+      function Z(y) { return Hh / 2 - y / 12; }
+      function mat(c, o) { return new THREE.MeshStandardMaterial(Object.assign({ color: new THREE.Color(c), roughness: 0.82, metalness: 0.05 }, o || {})); }
+      function boxAt(x, y, w, h, z0, ht, m, cast) {
+        var g = new THREE.BoxGeometry(Math.max(w / 12, 0.05), Math.max(ht / 12, 0.02), Math.max(h / 12, 0.05));
+        var mesh = new THREE.Mesh(g, m);
+        mesh.position.set(X(x + w / 2), (z0 + ht / 2) / 12, Z(y + h / 2));
+        mesh.castShadow = cast !== false; mesh.receiveShadow = true;
+        root3.add(mesh);
+        if (cur) { mesh.userData.it = cur; T.pick.push(mesh); }
+        return mesh;
+      }
+      // Cylinder centred on plan point (x, y). axis "y" stands up from z0; "x"/"z" lie flat, centred at height z0.
+      function cylAt(x, y, z0, r, ht, m, axis) {
+        var mesh = new THREE.Mesh(new THREE.CylinderGeometry(r / 12, r / 12, ht / 12, 22), m);
+        if (axis === "x") mesh.rotation.z = Math.PI / 2;
+        if (axis === "z") mesh.rotation.x = Math.PI / 2;
+        mesh.position.set(X(x), (axis === "x" || axis === "z" ? z0 : z0 + ht / 2) / 12, Z(y));
+        mesh.castShadow = true; mesh.receiveShadow = true;
+        root3.add(mesh);
+        if (cur) { mesh.userData.it = cur; T.pick.push(mesh); }
+        return mesh;
+      }
+      var cur = null;
+      function edges(mesh, color) {
+        var l = new THREE.LineSegments(new THREE.EdgesGeometry(mesh.geometry), new THREE.LineBasicMaterial({ color: new THREE.Color(color), transparent: true, opacity: 0.7 }));
+        l.position.copy(mesh.position); root3.add(l);
+      }
+      var ink = css("--ink"), surface = css("--surface"), rule = css("--rule"), birch = css("--birch"), crit = css("--critical"), green = css("--green"), muted = css("--muted");
+
+      var floor = new THREE.Mesh(new THREE.PlaneGeometry(W, Hh), mat(surface, { roughness: 1 }));
+      floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; root3.add(floor);
+      sc.aisles.forEach(function (a) {
+        var p = new THREE.Mesh(new THREE.PlaneGeometry((a[2] - a[0]) / 12, (a[3] - a[1]) / 12), new THREE.MeshBasicMaterial({ color: new THREE.Color(birch), transparent: true, opacity: 0.16 }));
+        p.rotation.x = -Math.PI / 2; p.position.set(X((a[0] + a[2]) / 2), 0.02, Z((a[1] + a[3]) / 2)); root3.add(p);
+      });
+      var wallM = mat(muted, { transparent: true, opacity: 0.85 });
+      [[0, -6, D.W, 6], [0, D.H, D.W, 6], [-6, 0, 6, D.H], [D.W, 0, 6, D.H]].forEach(function (w) { boxAt(w[0], w[1], w[2], w[3], 0, 20, wallM); });
+      var o = sc.opening;
+      boxAt(681, 0, 6, o[0], 0, 60, wallM); boxAt(681, o[1], 6, D.H - o[1], 0, 60, wallM);
+      boxAt(-8, D.inDoor[0], 10, D.inDoor[1] - D.inDoor[0], 0, 52, mat(green));
+      boxAt(D.W - 2, D.outDoor[0], 10, D.outDoor[1] - D.outDoor[0], 0, 52, mat(crit));
+      var c = D.cafe, cafe = boxAt(c[0], c[1], c[2], c[3], 0, 96, mat(rule, { transparent: true, opacity: 0.55 }));
+      edges(cafe, muted);
+
+      sc.items.forEach(function (it) {
+        var cols = colorOf(it.z), soft = new THREE.Color(cols[0]), strong = new THREE.Color(cols[1]);
+        var body = soft.clone().lerp(strong, 0.38), dark = strong.clone().lerp(new THREE.Color(ink), 0.15);
+        if (it.area) {
+          var p = new THREE.Mesh(new THREE.PlaneGeometry(it.w / 12, it.h / 12), new THREE.MeshBasicMaterial({ color: strong, transparent: true, opacity: 0.14 }));
+          p.rotation.x = -Math.PI / 2; p.position.set(X(it.x + it.w / 2), 0.03, Z(it.y + it.h / 2)); root3.add(p);
+          var ol = new THREE.LineSegments(new THREE.EdgesGeometry(p.geometry), new THREE.LineDashedMaterial({ color: strong, dashSize: 0.8, gapSize: 0.5 }));
+          ol.rotation.copy(p.rotation); ol.position.copy(p.position); ol.computeLineDistances(); root3.add(ol);
+          p.userData.it = it; T.pick.push(p);
+        } else {
+          cur = it;
+          machine3d(it, strong, boxAt, cylAt, mat);
+          cur = null;
+          // zone footprint painted on the floor, so the zone still reads when machines keep their real colours
+          var pad = new THREE.Mesh(new THREE.PlaneGeometry(it.w / 12 + 0.5, it.h / 12 + 0.5), new THREE.MeshBasicMaterial({ color: strong, transparent: true, opacity: 0.22 }));
+          pad.rotation.x = -Math.PI / 2; pad.position.set(X(it.x + it.w / 2), 0.04, Z(it.y + it.h / 2)); root3.add(pad);
+          var pl = new THREE.LineSegments(new THREE.EdgesGeometry(pad.geometry), new THREE.LineBasicMaterial({ color: strong }));
+          pl.rotation.copy(pad.rotation); pl.position.copy(pad.position); root3.add(pl);
+        }
+        var sp = labelSprite(nm(it.k), ink, surface);
+        sp.position.set(X(it.x + it.w / 2), Math.max(it.ht, 12) / 12 + 2, Z(it.y + it.h / 2));
+        sp.visible = S.names; root3.add(sp); T.labels.push(sp);
+      });
+
+      var pts = sc.flow.map(function (p) { return new THREE.Vector3(X(p[0]), 0.35, Z(p[1])); });
+      var path = new THREE.CurvePath();
+      for (var k = 1; k < pts.length; k++) path.add(new THREE.LineCurve3(pts[k - 1], pts[k]));
+      var flowM = new THREE.MeshStandardMaterial({ color: new THREE.Color(crit), emissive: new THREE.Color(crit), emissiveIntensity: 0.35 });
+      var tube = new THREE.Mesh(new THREE.TubeGeometry(path, pts.length * 24, 0.28, 8, false), flowM);
+      var last = pts[pts.length - 1], prev = pts[pts.length - 2];
+      var cone = new THREE.Mesh(new THREE.ConeGeometry(0.9, 2, 16), flowM);
+      cone.position.copy(last);
+      cone.quaternion.setFromUnitVectors(new THREE.Vector3(0, 1, 0), last.clone().sub(prev).normalize());
+      var flowG = new THREE.Group(); flowG.add(tube); flowG.add(cone); flowG.visible = S.flow; root3.add(flowG); T.flowG = flowG;
+
+      [[t("ENTRÉE", "IN"), -4, (D.inDoor[0] + D.inDoor[1]) / 2, green], [t("SORTIE", "OUT"), D.W + 4, (D.outDoor[0] + D.outDoor[1]) / 2, crit]].forEach(function (d) {
+        var sp = labelSprite(d[0], "#ffffff", d[3]); sp.position.set(X(d[1]), 6, Z(d[2])); root3.add(sp);
+      });
+    }
+    function loop() {
+      if (!T || !T.running) return;
+      T.controls.update();
+      T.renderer.render(T.scene, T.camera);
+      requestAnimationFrame(loop);
+    }
+    function show3d() {
+      msg(t("Chargement de la vue 3D…", "Loading the 3D view…"));
+      load3d().then(function () {
+        msg(null);
+        if (!T) {
+          try { init3d(); } catch (e) { msg(t("La vue 3D n’est pas disponible sur cet appareil.", "The 3D view isn’t available on this device.")); return; }
+          size3d(); build3d(); frame(false);
+        }
+        size3d();
+        if (!T.running) { T.running = true; loop(); }
+      }).catch(function () { msg(t("La vue 3D n’a pas pu se charger. Vérifiez la connexion Internet.", "The 3D view couldn’t load. Check the Internet connection.")); });
+    }
+
+    /* ---------- state ---------- */
+    function render() {
+      plan.classList.toggle("no-flow", !S.flow);
+      plan.classList.toggle("no-names", !S.names);
+      document.querySelectorAll(".sc-card").forEach(function (b) {
+        var on = b.getAttribute("data-sc") === S.sc;
+        b.setAttribute("aria-selected", on ? "true" : "false");
+        b.tabIndex = on ? 0 : -1;
+        el("sc-d-" + b.getAttribute("data-sc")).hidden = !on;
+      });
+      document.querySelectorAll("[data-dist]").forEach(function (s) {
+        s.textContent = t("Parcours ≈ ", "Path ≈ ") + pathFt(s.getAttribute("data-dist")) + (en() ? " ft" : " pi");
+      });
+      document.querySelectorAll(".sc-chip").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-zone") === S.focus ? "true" : "false"); });
+      var is3 = S.view === "3d";
+      el("sc-2d").hidden = is3; box3.hidden = !is3;
+      document.querySelectorAll("[data-view]").forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-view") === S.view ? "true" : "false"); });
+      el("sc-flow").setAttribute("aria-pressed", S.flow ? "true" : "false");
+      el("sc-names").setAttribute("aria-pressed", S.names ? "true" : "false");
+      document.querySelectorAll(".sc-hint [data-v]").forEach(function (h) { h.hidden = h.getAttribute("data-v") !== S.view; });
+      hideTip();
+      draw2d();
+      if (is3) {
+        if (T) {
+          build3d();
+          T.labels.forEach(function (l) { l.visible = S.names; });
+          if (T.flowG) T.flowG.visible = S.flow;
+        }
+        show3d();
+      } else if (T) T.running = false;
+    }
+    function pick(k, focus) { S.sc = k; render(); if (focus) el("sc-t-" + k).focus(); }
+    var cards = Array.prototype.slice.call(document.querySelectorAll(".sc-card"));
+    cards.forEach(function (b, i) {
+      b.addEventListener("click", function () { pick(b.getAttribute("data-sc")); });
+      b.addEventListener("keydown", function (e) {
+        var n = null;
+        if (e.key === "ArrowRight") n = (i + 1) % cards.length;
+        if (e.key === "ArrowLeft") n = (i - 1 + cards.length) % cards.length;
+        if (n !== null) { e.preventDefault(); pick(cards[n].getAttribute("data-sc"), true); }
+      });
+    });
+    document.querySelectorAll("[data-view]").forEach(function (b) {
+      b.addEventListener("click", function () { S.view = b.getAttribute("data-view"); render(); });
+    });
+    el("sc-flow").addEventListener("click", function () { S.flow = !S.flow; render(); });
+    el("sc-names").addEventListener("click", function () { S.names = !S.names; render(); });
+    document.querySelectorAll(".sc-chip").forEach(function (b) {
+      b.addEventListener("click", function () { var z = b.getAttribute("data-zone"); S.focus = S.focus === z ? null : z; render(); });
+    });
+    el("sc-reset").addEventListener("click", function () { if (T) frame(false); });
+    el("sc-top").addEventListener("click", function () { if (T) frame(true); });
+    new MutationObserver(function () { render(); }).observe(root, { attributes: true, attributeFilter: ["data-lang", "data-theme"] });
+    if (window.matchMedia) {
+      var mqd = window.matchMedia("(prefers-color-scheme: dark)");
+      if (mqd.addEventListener) mqd.addEventListener("change", function () { render(); });
+    }
+    render();
+  })();
+  /* scenarios-js:end */
 
   /* language */
   function setLang(l, save) {
